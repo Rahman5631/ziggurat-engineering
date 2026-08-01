@@ -79,15 +79,13 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* ============ SCROLLBAR ============ */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
         ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
         ::selection { background: var(--gold); color: #fff; }
 
-        /* ============ NOISE OVERLAY ============ */
+        /* نویز */
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 9999;
             opacity: 0.02;
@@ -118,8 +116,7 @@
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem; color: #0a0f1a; font-weight: 900;
-            box-shadow: var(--shadow-gold);
-            transition: 0.25s;
+            box-shadow: var(--shadow-gold); transition: 0.25s; position: relative;
         }
         .brand-icon::after {
             content: ''; position: absolute; inset: -3px; border-radius: 11px;
@@ -158,15 +155,19 @@
         .nav-cta:hover { box-shadow: 0 6px 30px rgba(200,164,92,0.45) !important; transform: translateY(-2px); }
         .nav-cta::after { display: none !important; }
 
-        /* تم دارک/لایت */
+        /* دکمه تم مستقل */
         .theme-toggle {
             background: none; border: 1.5px solid var(--border-teal);
             color: var(--text-primary); width: 38px; height: 38px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 1rem; transition: 0.25s;
-            margin-left: 0.5rem;
+            flex-shrink: 0;
         }
         .theme-toggle:hover { background: var(--gold); border-color: var(--gold); color: #0a0f1a; }
+
+        .nav-controls {
+            display: flex; align-items: center; gap: 1rem;
+        }
 
         .hamburger {
             display: none; background: none; border: none; cursor: pointer;
@@ -270,7 +271,6 @@
         }
         .container { max-width:1200px; margin:0 auto; }
 
-        /* خدمات */
         .services-grid {
             display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1.8rem;
         }
@@ -296,7 +296,6 @@
         .service-card h3 { font-size:1.25rem; font-weight:700; margin-bottom:0.7rem; }
         .service-card p { color:var(--text-secondary); font-size:0.95rem; line-height:1.8; }
 
-        /* آمار */
         .stats-section {
             background:var(--stat-bg); border-top:1px solid var(--border-subtle);
             border-bottom:1px solid var(--border-subtle);
@@ -311,7 +310,6 @@
         }
         .stat-label { color:var(--text-muted); font-size:0.9rem; margin-top:0.4rem; letter-spacing:1px; }
 
-        /* پروژه‌ها */
         .projects-grid {
             display:grid; grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); gap:1.8rem;
         }
@@ -340,7 +338,6 @@
             margin-bottom:0.7rem; letter-spacing:1px;
         }
 
-        /* CTA */
         .cta-banner {
             background:var(--cta-bg); border-radius:28px; border:1px solid var(--border-teal);
             padding:3.5rem 2.5rem; text-align:center; position:relative; overflow:hidden;
@@ -351,13 +348,9 @@
             background:radial-gradient(circle, rgba(200,164,92,0.08) 0%, transparent 70%);
             top:-100px; right:-80px; pointer-events:none;
         }
-        .cta-banner h2 {
-            font-size:clamp(1.5rem,3vw,2.2rem); font-weight:800; margin-bottom:1rem;
-            font-family:'Segoe UI', sans-serif;
-        }
+        .cta-banner h2 { font-size:clamp(1.5rem,3vw,2.2rem); font-weight:800; margin-bottom:1rem; }
         .cta-banner p { color:var(--text-secondary); margin-bottom:2rem; max-width:550px; margin-inline:auto; }
 
-        /* فوتر */
         .footer {
             background:var(--footer-bg); border-top:1px solid var(--border-subtle);
             padding:4rem 2rem 2rem;
@@ -386,7 +379,6 @@
 
         /* ============ RESPONSIVE ============ */
         @media (max-width:900px) {
-            .hamburger { display:flex; }
             .nav-links {
                 position:fixed; top:0; right:-100%; width:75%; max-width:380px; height:100vh;
                 background:rgba(13,21,37,0.97); backdrop-filter:blur(25px);
@@ -396,11 +388,14 @@
             .light-mode .nav-links { background:rgba(255,255,255,0.96); }
             .nav-links.active { right:0; }
             .nav-links a { font-size:1.2rem; }
+            .hamburger { display:flex; }
             .mobile-overlay {
                 position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999;
                 opacity:0; pointer-events:none; transition:0.45s;
             }
             .mobile-overlay.active { opacity:1; pointer-events:all; }
+            /* دکمه تم خارج از منو همیشه قابل مشاهده */
+            .theme-toggle { margin: 0; }
         }
 
         @media (max-width:600px) {
@@ -428,11 +423,13 @@
             <li><a href="#projects" onclick="closeMenu()">پروژه‌ها</a></li>
             <li><a href="#about" onclick="closeMenu()">درباره ما</a></li>
             <li><a href="#contact" class="nav-cta" onclick="closeMenu()">تماس با ما</a></li>
-            <li><button class="theme-toggle" id="themeToggle" aria-label="تغییر تم"><i class="fa-solid fa-moon"></i></button></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="منو">
-            <span></span><span></span><span></span>
-        </button>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم"><i class="fa-solid fa-moon"></i></button>
+            <button class="hamburger" id="hamburger" aria-label="منو">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <!-- ==================== HERO ==================== -->
@@ -552,7 +549,7 @@
         </div>
     </section>
 
-    <!-- ==================== CTA / ABOUT ==================== -->
+    <!-- ==================== CTA ==================== -->
     <section id="about">
         <div class="container">
             <div class="cta-banner">
@@ -644,7 +641,6 @@
         const body = document.body;
         const themeIcon = themeToggle.querySelector('i');
 
-        // Load saved theme
         const savedTheme = localStorage.getItem('ziggurat-theme');
         if (savedTheme === 'light') {
             body.classList.add('light-mode');
