@@ -606,6 +606,24 @@
         </div>
     </footer>
 
+<script>
+    // غیرفعال‌سازی کلیک راست
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // غیرفعال‌سازی کلیدهای میانبر
+    document.addEventListener('keydown', function (e) {
+        // F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+
+    });
+</script>
+
     <script>
         // ============ NAVBAR SCROLL ============
         const navbar = document.getElementById('navbar');
