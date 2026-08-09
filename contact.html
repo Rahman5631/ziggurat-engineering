@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تماس با ما | زیگورات سازان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --bg-deep: #fcf9f5; --bg-card: rgba(255,255,255,0.8); --brick: #c44536; --brick-dark: #8b3a32;
+            --text-primary: #2c241b; --text-secondary: #4a4038; --border-subtle: rgba(196,69,54,0.2);
+            --shadow-card: 0 8px 30px rgba(0,0,0,0.1); --navbar-bg: rgba(255,255,255,0.85); --footer-bg: #f7f3ee;
+        }
+        body.dark-mode {
+            --bg-deep: #1c1a18; --bg-card: rgba(42,37,33,0.8); --brick: #d6685a; --text-primary: #ece6df;
+            --text-secondary: #c9bfb3; --border-subtle: rgba(214,104,90,0.3); --navbar-bg: rgba(28,26,24,0.85); --footer-bg: #1c1a18;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); transition:0.4s; }
+        .navbar {
+            position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem;
+            display:flex; align-items:center; justify-content:space-between;
+            background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle);
+        }
+        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
+        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; }
+        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
+        .nav-links { display:flex; list-style:none; gap:1.8rem; }
+        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; } .nav-links a:hover { color:var(--brick); }
+        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; }
+        .container { max-width:1000px; margin:0 auto; padding:6rem 2rem 2rem; display:grid; grid-template-columns: 1fr 1fr; gap:3rem; }
+        @media (max-width:768px) { .container { grid-template-columns: 1fr; } }
+        .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem 0 2rem; border-radius:3px; }
+        .contact-form { display:flex; flex-direction:column; gap:1.2rem; }
+        .contact-form input, .contact-form textarea {
+            padding:0.9rem 1.2rem; border-radius:12px; border:1px solid var(--border-subtle);
+            background:var(--bg-card); color:var(--text-primary); font-family:inherit; outline:none;
+        }
+        .btn {
+            display:inline-flex; align-items:center; gap:0.5rem; padding:0.85rem 2rem; border-radius:8px;
+            font-weight:700; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); color:#fff;
+            border:none; cursor:pointer; transition:0.3s; align-self:flex-start;
+        }
+        .btn:hover { transform:translateY(-3px); box-shadow:0 12px 35px rgba(196,69,54,0.5); }
+        .info-box { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:16px; padding:2rem; }
+        .info-box p { margin-bottom:1rem; color:var(--text-secondary); }
+        .info-box i { color:var(--brick); margin-left:0.5rem; width:20px; }
+        #mapid { height:300px; border-radius:12px; margin-top:1.5rem; border:1px solid var(--border-subtle); }
+        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-secondary); margin-top:4rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li>
+            <li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li>
+            <li><a href="blog.html">وبلاگ</a></li><li><a href="about.html">درباره ما</a></li><li><a href="contact.html" style="color:var(--brick)">تماس با ما</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
+    </nav>
+
+    <div class="container">
+        <div>
+            <h1 class="section-title">با ما در ارتباط باشید</h1>
+            <div class="section-line"></div>
+            <form class="contact-form">
+                <input type="text" placeholder="نام کامل" required>
+                <input type="email" placeholder="ایمیل" required>
+                <input type="text" placeholder="موضوع">
+                <textarea rows="5" placeholder="پیام شما..."></textarea>
+                <button type="submit" class="btn">ارسال پیام</button>
+            </form>
+        </div>
+        <div class="info-box">
+            <p><i class="fa-solid fa-phone"></i> ۰۹۱۱۹۴۹۳۵۴۵</p>
+            <p><i class="fa-solid fa-phone"></i> ۰۹۳۳۴۱۰۴۸۸۲</p>
+            <p><i class="fa-solid fa-envelope"></i> info@ziggurat1.com</p>
+            <p><i class="fa-solid fa-location-dot"></i> نوشهر، ۸ کیلومتری سیسنگان به رویان، نبش ورودی علویکلا</p>
+            <p><i class="fa-solid fa-clock"></i> شنبه تا پنجشنبه: ۸ الی ۱۸</p>
+            <div id="mapid"></div>
+        </div>
+    </div>
+
+    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        if (localStorage.getItem('ziggurat-theme') === 'dark') { document.body.classList.add('dark-mode'); }
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('ziggurat-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+        const map = L.map('mapid').setView([36.6542, 51.5035], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+        L.marker([36.6542, 51.5035]).addTo(map).bindPopup("زیگورات سازان").openPopup();
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وبلاگ | زیگورات سازان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-deep: #fcf9f5; --bg-card: rgba(255,255,255,0.8); --brick: #c44536; --text-primary: #2c241b;
+            --text-secondary: #4a4038; --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.1);
+            --navbar-bg: rgba(255,255,255,0.85); --footer-bg: #f7f3ee;
+        }
+        body.dark-mode {
+            --bg-deep: #1c1a18; --bg-card: rgba(42,37,33,0.8); --brick: #d6685a; --text-primary: #ece6df;
+            --text-secondary: #c9bfb3; --border-subtle: rgba(214,104,90,0.3); --navbar-bg: rgba(28,26,24,0.85); --footer-bg: #1c1a18;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); transition:0.4s; }
+        .navbar {
+            position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem;
+            display:flex; align-items:center; justify-content:space-between;
+            background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle);
+        }
+        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
+        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, #8b3a32, var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; }
+        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
+        .nav-links { display:flex; list-style:none; gap:1.8rem; }
+        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; } .nav-links a:hover { color:var(--brick); }
+        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; }
+        .container { max-width:1000px; margin:0 auto; padding:6rem 2rem 2rem; }
+        .section-header { text-align:center; margin-bottom:3rem; }
+        .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem auto; border-radius:3px; }
+        .blog-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:2rem; }
+        .blog-card {
+            background:var(--bg-card); backdrop-filter:blur(15px); border:1px solid var(--border-subtle);
+            border-radius:16px; padding:2rem; transition:0.3s; box-shadow:var(--shadow-card);
+        }
+        .blog-card:hover { transform:translateY(-6px); border-color:var(--brick); }
+        .blog-card .category { color:var(--brick); font-size:0.8rem; margin-bottom:0.8rem; }
+        .blog-card h3 { margin-bottom:0.8rem; }
+        .blog-card p { color:var(--text-secondary); margin-bottom:1.2rem; }
+        .blog-card .date { color:var(--text-secondary); font-size:0.85rem; }
+        .blog-card a { color:var(--brick); font-weight:600; text-decoration:none; }
+        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-secondary); margin-top:4rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li>
+            <li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li>
+            <li><a href="blog.html" style="color:var(--brick)">وبلاگ</a></li><li><a href="about.html">درباره ما</a></li><li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
+    </nav>
+
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">وبلاگ تخصصی معماری</h1>
+            <div class="section-line"></div>
+        </div>
+        <div class="blog-grid">
+            <div class="blog-card"><span class="category">متریال و مصالح</span><h3>راهنمای انتخاب نمای ساختمان در شمال</h3><p>بررسی مزایا و معایب کامپوزیت، سنگ و ترموود...</p><span class="date">۲ مرداد ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+            <div class="blog-card"><span class="category">طراحی ویلا</span><h3>اصول طراحی ویلاهای مدرن</h3><p>چگونه ویلاهایی هماهنگ با طبیعت بسازیم؟</p><span class="date">۱۸ تیر ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+            <div class="blog-card"><span class="category">اقتصاد ساختمان</span><h3>هزینه ساخت و ساز در ۱۴۰۵</h3><p>عوامل مؤثر بر قیمت تمام شده و راهکارهای کاهش.</p><span class="date">۳ تیر ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+            <div class="blog-card"><span class="category">بازسازی</span><h3>نکات طلایی بازسازی ساختمان</h3><p>چطور از تخریب‌های غیرضروری جلوگیری کنیم؟</p><span class="date">۲۰ خرداد ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+            <div class="blog-card"><span class="category">دکوراسیون داخلی</span><h3>ترندهای ۱۴۰۴ در دکوراسیون</h3><p>سبک‌های مینیمال و مدرن که امسال محبوبند.</p><span class="date">۵ خرداد ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+            <div class="blog-card"><span class="category">سازه</span><h3>مقایسه اسکلت بتنی و فلزی</h3><p>کدام گزینه برای پروژه شما مناسب‌تر است؟</p><span class="date">۲۸ اردیبهشت ۱۴۰۴</span><br><a href="#">ادامه مطلب ←</a></div>
+        </div>
+    </div>
+
+    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        if (localStorage.getItem('ziggurat-theme') === 'dark') { document.body.classList.add('dark-mode'); }
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('ziggurat-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>
