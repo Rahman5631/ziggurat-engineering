@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طرح توجیهی وب‌سایت | زیگورات سازان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-deep: #fcf9f5;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --brick: #c44536;
+            --brick-light: #d6685a;
+            --brick-dark: #8b3a32;
+            --mortar: #d5ccc1;
+            --mortar-light: #e5ded6;
+            --sand: #f4e9dc;
+            --gold: #b28b40;
+            --gold-light: #d4af6c;
+            --text-primary: #2c241b;
+            --text-secondary: #4a4038;
+            --text-muted: #7a6f65;
+            --border-subtle: rgba(196, 69, 54, 0.2);
+            --border-brick: rgba(196, 69, 54, 0.35);
+            --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.1);
+            --shadow-brick: 0 6px 20px rgba(196, 69, 54, 0.25);
+            --navbar-bg: rgba(255, 255, 255, 0.85);
+            --footer-bg: #f7f3ee;
+            --input-bg: #f7f3ee;
+            --stat-bg: #fcf9f5;
+        }
+
+        body.dark-mode {
+            --bg-deep: #1c1a18;
+            --bg-card: rgba(42, 37, 33, 0.8);
+            --brick: #d6685a;
+            --brick-light: #e08b7e;
+            --brick-dark: #a34b3f;
+            --mortar: #3b362f;
+            --mortar-light: #4d4740;
+            --sand: #2c2824;
+            --gold: #d4af6c;
+            --gold-light: #e0c47a;
+            --text-primary: #ece6df;
+            --text-secondary: #c9bfb3;
+            --text-muted: #9d9184;
+            --border-subtle: rgba(214, 104, 90, 0.3);
+            --border-brick: rgba(214, 104, 90, 0.4);
+            --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --shadow-brick: 0 6px 20px rgba(214, 104, 90, 0.3);
+            --navbar-bg: rgba(28, 26, 24, 0.85);
+            --footer-bg: #1c1a18;
+            --input-bg: #2a2521;
+            --stat-bg: #1c1a18;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        /* پس‌زمینه آجری */
+        .bg-brick-pattern {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, var(--brick) 20px, var(--brick) 21px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, var(--brick) 40px, var(--brick) 41px);
+        }
+        .dark-mode .bg-brick-pattern {
+            opacity: 0.05;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brick);
+            border-radius: 10px;
+        }
+        ::selection {
+            background: var(--brick);
+            color: #fff;
+        }
+
+        /* نوار ناوبری */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--navbar-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #fff;
+            font-weight: 900;
+            box-shadow: var(--shadow-brick);
+        }
+        .brand-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .brand-text span {
+            color: var(--brick);
+        }
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-brick);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.25s;
+            backdrop-filter: blur(10px);
+        }
+        .theme-toggle:hover {
+            background: var(--brick);
+            border-color: var(--brick);
+            color: #fff;
+        }
+
+        /* محتوای اصلی */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-brick);
+            border-radius: 8px;
+            padding: 0.5rem 1.4rem;
+            font-size: 0.9rem;
+            color: var(--brick);
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--brick), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .section-line {
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brick), var(--gold));
+            margin: 0.5rem auto 2rem;
+            border-radius: 3px;
+        }
+
+        /* کارت‌های شیشه‌ای */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-card);
+            transition: 0.3s;
+        }
+        .glass-card:hover {
+            border-color: var(--border-brick);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .glass-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--brick);
+        }
+        .glass-card h2 i {
+            margin-left: 0.5rem;
+        }
+
+        /* جدول ویژگی‌ها */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .feature-table th,
+        .feature-table td {
+            padding: 0.8rem 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .feature-table th {
+            background: rgba(196, 69, 54, 0.08);
+            color: var(--brick);
+            font-weight: 700;
+            border-radius: 8px 8px 0 0;
+        }
+        .feature-table tr:hover {
+            background: rgba(196, 69, 54, 0.03);
+        }
+
+        /* لیست صفحات */
+        .page-list {
+            list-style: none;
+            padding: 0;
+        }
+        .page-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .page-list li:last-child {
+            border-bottom: none;
+        }
+        .page-list li i {
+            color: var(--brick);
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+        .page-list li code {
+            background: rgba(196, 69, 54, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--brick);
+            font-weight: 600;
+        }
+        .page-list li span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* تکنولوژی‌ها */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .tech-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .tech-item:hover {
+            border-color: var(--brick);
+            transform: translateY(-4px);
+        }
+        .tech-item i {
+            font-size: 2rem;
+            color: var(--brick);
+            margin-bottom: 0.8rem;
+        }
+        .tech-item h4 {
+            margin-bottom: 0.4rem;
+        }
+        .tech-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* مزایا */
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        .benefits-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+        .benefits-list li .benefit-number {
+            background: var(--brick);
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .benefits-list li h4 {
+            margin-bottom: 0.3rem;
+        }
+        .benefits-list li p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* دکمه‌ها */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: 0.25s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
+            color: #fff;
+            box-shadow: var(--shadow-brick);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 12px 35px rgba(196, 69, 54, 0.5);
+            transform: translateY(-3px);
+        }
+        .btn-large {
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            border-radius: 12px;
+        }
+
+        /* ذرات آجری */
+        .brick-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--brick);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 10;
+            animation: crumble 0.7s ease-out forwards;
+        }
+        @keyframes crumble {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.2);
+            }
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-subtle);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .glass-card {
+                padding: 1.5rem 1rem;
+            }
+            .feature-table th,
+            .feature-table td {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-brick-pattern"></div>
+
+    <!-- نوار ناوبری -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div>
+            <span class="brand-text">زیگورات<span>سازان</span></span>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+            <i class="fa-solid fa-sun"></i>
+        </button>
+    </nav>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <!-- هدر -->
+        <div class="hero-section">
+            <div class="hero-badge">✦ طرح توجیهی پروژه ✦</div>
+            <h1 class="hero-title">
+                وب‌سایت <span class="highlight">شرکت معماری زیگورات سازان</span>
+            </h1>
+            <p class="hero-subtitle">
+                یک وب‌سایت مدرن، واکنش‌گرا و کاملاً متناسب با هویت برند شما
+            </p>
+            <div class="section-line"></div>
+        </div>
+
+        <!-- معرفی پروژه -->
+        <div class="glass-card">
+            <h2><i class="fa-solid fa-info-circle"></i> دربارهٔ پروژه</h2>
+            <p>
+                این وب‌سایت به‌عنوان <strong>دموی اولیه</strong> برای برند <strong>«زیگورات سازان»</strong> طراحی و توسعه داده شده است.
+                هدف اصلی، ایجاد یک حضور دیجیتال قدرتمند، نمایش پروژه‌ها، معرفی خدمات، و تسهیل ارتباط با مشتریان بالقوه می‌باشد.
+            </p>
+            <p style="margin-top: 1rem;">
+                <strong>تم اصلی سایت:</strong> آجر، ملات، سفال و رنگ‌های گرم ساختمانی<br>
+                <strong>سبک طراحی:</strong> مدرن، مینیمال، با المان‌های شیشه‌ای (Glassmorphism) و انیمیشن‌های تعاملی
+            </p>
+        </div>
+
+        <!-- ویژگی‌های کلیدی -->
+        <div class="glass-card">
+            <h2><i class="fa-solid fa-star"></i> ویژگی‌های کلیدی</h2>
+            <table class="feature-table">
+                <thead>
+                    <tr>
+                        <th>ویژگی</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🎨 تم ساختمانی</td>
+                        <td>رنگ‌بندی آجری، سفالی و ملاتی؛ القاکنندهٔ حس استحکام و تخصص</td>
+                    </tr>
+                    <tr>
+                        <td>🌗 حالت تاریک/روشن</td>
+                        <td>تغییر تم با یک کلیک و ذخیره‌سازی در مرورگر</td>
+                    </tr>
+                    <tr>
+                        <td>🧱 انیمیشن فرو ریختن آجر</td>
+                        <td>ذرات آجر با کلیک روی هر دکمه فرو می‌ریزند</td>
+                    </tr>
+                    <tr>
+                        <td>📱 واکنش‌گرا</td>
+                        <td>نمایش عالی در موبایل، تبلت و دسکتاپ</td>
+                    </tr>
+                    <tr>
+                        <td>🗺️ نقشهٔ تعاملی</td>
+                        <td>موقعیت دقیق دفتر با قابلیت مسیریابی</td>
+                    </tr>
+                    <tr>
+                        <td>📊 شمارنده‌های پویا</td>
+                        <td>آمار پروژه‌ها و مشتریان به‌صورت انیمیشن شمارشی</td>
+                    </tr>
+                    <tr>
+                        <td>📝 فرم تماس</td>
+                        <td>فرم تماس با فیلدهای نام، ایمیل، موضوع و پیام</td>
+                    </tr>
+                    <tr>
+                        <td>🔗 لینک اینستاگرام</td>
+                        <td>دسترسی سریع به صفحهٔ رسمی اینستاگرام شرکت</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ساختار صفحات -->
+        <div class="glass-card">
+            <h2><i class="fa-solid fa-folder-tree"></i> ساختار صفحات (۷ صفحهٔ کامل)</h2>
+            <ul class="page-list">
+                <li>
+                    <i class="fa-solid fa-house"></i>
+                    <code>index.html</code>
+                    <span>— صفحهٔ اصلی با Hero، آمار، خدمات، پروژه‌ها، وبلاگ، نقشه و فوتر</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-folder-open"></i>
+                    <code>projects.html</code>
+                    <span>— لیست کامل پروژه‌ها با فیلتر دسته‌بندی (ویلایی، تجاری، بازسازی)</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-toolbox"></i>
+                    <code>services.html</code>
+                    <span>— ۱۲ خدمت تخصصی با توضیحات کامل و دکمهٔ «درخواست مشاوره»</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-users"></i>
+                    <code>about.html</code>
+                    <span>— تاریخچهٔ شرکت، بیوگرافی مدیرعامل و ارزش‌های سازمانی</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-newspaper"></i>
+                    <code>blog.html</code>
+                    <span>— وبلاگ تخصصی با ۶ مقالهٔ آماده در حوزهٔ معماری و ساخت‌وساز</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-envelope"></i>
+                    <code>contact.html</code>
+                    <span>— فرم تماس، اطلاعات ارتباطی، نقشه و لینک شبکه‌های اجتماعی</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-film"></i>
+                    <code>videos.html</code>
+                    <span>— صفحهٔ گالری ویدیویی (آماده برای بارگذاری محتوا)</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- تکنولوژی‌ها -->
+        <div class="glass-card">
+            <h2><i class="fa-solid fa-code"></i> تکنولوژی‌های استفاده‌شده</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fa-brands fa-html5"></i>
+                    <h4>HTML5</h4>
+                    <p>ساختار استاندارد و Semantic صفحات</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fa-brands fa-css3-alt"></i>
+                    <h4>CSS3</h4>
+                    <p>طراحی کاملاً سفارشی با متغیرهای CSS (بدون فریم‌ورک)</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fa-brands fa-js"></i>
+                    <h4>JavaScript</h4>
+                    <p>انیمیشن‌ها، فیلترها، تم تاریک/روشن و شمارنده‌ها</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fa-solid fa-font-awesome"></i>
+                    <h4>Font Awesome 6</h4>
+                    <p>آیکون‌های برداری زیبا و سبک</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fa-solid fa-map"></i>
+                    <h4>Leaflet.js</h4>
+                    <p>نقشهٔ تعاملی بدون نیاز به API Key</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fa-brands fa-google"></i>
+                    <h4>Google Maps</h4>
+                    <p>لینک مسیریابی سریع برای کاربران</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- مزایا -->
+        <div class="glass-card">
+            <h2><i class="fa-solid fa-check-circle"></i> مزایا برای کارفرما</h2>
+            <ul class="benefits-list">
+                <li>
+                    <div class="benefit-number">۱</div>
+                    <div>
+                        <h4>حضور حرفه‌ای در فضای آنلاین</h4>
+                        <p>مشتریان امروزی قبل از تماس، وب‌سایت شما را بررسی می‌کنند. این سایت اعتماد می‌سازد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="benefit-number">۲</div>
+                    <div>
+                        <h4>نمایش پروژه‌ها و نمونه‌کارها</h4>
+                        <p>با یک گالری کامل، مشتریان بالقوه می‌توانند کیفیت کار شما را ببینند.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="benefit-number">۳</div>
+                    <div>
+                        <h4>ارتباط سریع و آسان</h4>
+                        <p>شماره تماس‌ها، فرم تماس و مسیریابی در دسترس مشتریان است.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="benefit-number">۴</div>
+                    <div>
+                        <h4>سئو-فرندلی (SEO-Friendly)</h4>
+                        <p>ساختار تمیز و Semantic سایت، آمادهٔ بهینه‌سازی برای موتورهای جستجو می‌باشد.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="benefit-number">۵</div>
+                    <div>
+                        <h4>قابل گسترش</h4>
+                        <p>به‌راحتی می‌توان صفحات جدید، تصاویر واقعی پروژه‌ها و ویدیوها را به سایت اضافه کرد.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- بخش CTA -->
+        <div class="cta-section">
+            <p style="font-size:1.2rem; font-weight:600;">برای مشاهدهٔ نسخهٔ دموی وب‌سایت، روی دکمهٔ زیر کلیک کنید:</p>
+            <a href="https://rahman5631.github.io/ziggurat-engineering/index.html" target="_blank" class="btn btn-primary btn-large brick-btn" id="demoBtn">
+                <i class="fa-solid fa-external-link-alt"></i> مشاهده وب‌سایت دمو
+            </a>
+            <p style="margin-top:1.5rem; color:var(--text-muted); font-size:0.9rem;">
+                <i class="fa-solid fa-globe"></i> 
+                https://rahman5631.github.io/ziggurat-engineering/index.html
+            </p>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <p>© ۲۰۲۶ | تمامی حقوق برای شرکت معماری <strong>زیگورات سازان</strong> محفوظ است.</p>
+        <p style="margin-top:0.5rem;">این طرح توجیهی جهت ارائه به کارفرما تهیه شده است.</p>
+    </footer>
+
+    <script>
+        // ====== تم تاریک/روشن ======
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        if (localStorage.getItem('ziggurat-theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            body.classList.remove('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun');
+            localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light');
+        });
+
+        // ====== انیمیشن فرو ریختن آجر برای دکمه دمو ======
+        function crumbleEffect(e) {
+            const btn = e.currentTarget;
+            const rect = btn.getBoundingClientRect();
+            const particleCount = 18;
+            const colors = ['#c44536', '#d6685a', '#8b3a32', '#b28b40', '#d5ccc1'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('span');
+                particle.classList.add('brick-particle');
+                const x = Math.random() * rect.width;
+                const y = Math.random() * rect.height;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = 50 + Math.random() * 80;
+                particle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--ty', Math.sin(angle) * distance - 40 + 'px');
+                particle.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+                btn.appendChild(particle);
+                particle.addEventListener('animationend', () => particle.remove());
+            }
+        }
+
+        const demoBtn = document.getElementById('demoBtn');
+        demoBtn.addEventListener('click', function(e) {
+            crumbleEffect(e);
+            // لینک را بعد از کمی تأخیر باز کن
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            setTimeout(() => {
+                window.open(href, '_blank');
+            }, 200);
+        });
+
+        // ====== اسکرول نرم برای لینک‌های داخلی ======
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const id = this.getAttribute('href');
+                if (id === '#') return;
+                const el = document.querySelector(id);
+                if (el) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: el.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
