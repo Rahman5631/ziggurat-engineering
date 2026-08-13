@@ -3,223 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خدمات | زیگورات سازان</title>
+    <title>درباره ما | زیگورات سازان</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* کپی کامل استایل‌های صفحه projects.html */
+        /* همان استایل‌های پایه + ناوبری واکنش‌گرا (مشابه services.html) */
         :root {
-            --bg-deep: #fcf9f5;
-            --bg-card: #ffffff;
-            --brick: #c44536;
-            --brick-dark: #8b3a32;
-            --text-primary: #2c241b;
-            --text-secondary: #4a4038;
-            --text-muted: #7a6f65;
-            --border-subtle: rgba(196, 69, 54, 0.2);
-            --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --navbar-bg: rgba(255, 255, 255, 0.95);
-            --footer-bg: #f7f3ee;
+            --bg-deep: #fcf9f5; --bg-card: #ffffff; --brick: #c44536; --brick-dark: #8b3a32;
+            --text-primary: #2c241b; --text-secondary: #4a4038; --text-muted: #7a6f65;
+            --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.08);
+            --navbar-bg: rgba(255,255,255,0.95); --footer-bg: #f7f3ee;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            transition: background 0.3s, color 0.3s;
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); line-height:1.7; transition:0.3s; }
+        .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle); box-shadow:0 4px 30px rgba(0,0,0,0.08); }
+        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
+        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; font-weight:900; }
+        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
+        .nav-links { display:flex; list-style:none; gap:1.8rem; align-items:center; transition:0.4s ease; }
+        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; font-size:0.95rem; transition:0.25s; }
+        .nav-links a:hover { color:var(--brick); } .nav-links a.active-link { color:var(--brick); font-weight:700; }
+        .nav-controls { display:flex; align-items:center; gap:1rem; }
+        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+        .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:6px; padding:8px; }
+        .hamburger span { width:28px; height:2.5px; background:var(--text-primary); border-radius:4px; transition:0.25s; }
+        .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); } .hamburger.active span:nth-child(2) { opacity:0; } .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
+        @media (max-width:900px) {
+            .hamburger { display:flex; }
+            .nav-links { position:fixed; top:0; right:-100%; width:75%; max-width:380px; height:100vh; background:var(--navbar-bg); backdrop-filter:blur(25px); flex-direction:column; justify-content:center; gap:2.5rem; transition:0.4s; border-left:1px solid var(--border-subtle); box-shadow:-10px 0 40px rgba(0,0,0,0.2); }
+            .nav-links.active { right:0; }
+            .mobile-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; opacity:0; pointer-events:none; transition:0.4s; }
+            .mobile-overlay.active { opacity:1; pointer-events:all; }
         }
-
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-        }
-        .nav-brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .brand-icon {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: #fff; font-weight: 900;
-        }
-        .brand-text { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); }
-        .brand-text span { color: var(--brick); }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.8rem;
-            align-items: center;
-            transition: 0.4s ease;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: 0.25s;
-        }
-        .nav-links a:hover { color: var(--brick); }
-        .nav-links a.active-link { color: var(--brick); font-weight: 700; }
-        .nav-controls { display: flex; align-items: center; gap: 1rem; }
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            width: 38px; height: 38px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 6px; padding: 8px; }
-        .hamburger span {
-            width: 28px; height: 2.5px;
-            background: var(--text-primary);
-            border-radius: 4px;
-            transition: 0.25s;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-
-        @media (max-width: 900px) {
-            .hamburger { display: flex; }
-            .nav-links {
-                position: fixed;
-                top: 0; right: -100%;
-                width: 75%; max-width: 380px; height: 100vh;
-                background: var(--navbar-bg);
-                backdrop-filter: blur(25px);
-                flex-direction: column;
-                justify-content: center;
-                gap: 2.5rem;
-                transition: 0.4s ease;
-                border-left: 1px solid var(--border-subtle);
-                box-shadow: -10px 0 40px rgba(0,0,0,0.2);
-            }
-            .nav-links.active { right: 0; }
-            .mobile-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-                opacity: 0;
-                pointer-events: none;
-                transition: 0.4s;
-            }
-            .mobile-overlay.active { opacity: 1; pointer-events: all; }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem 2rem;
-        }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title { font-size: 2.2rem; font-weight: 800; }
-        .section-line {
-            width: 70px; height: 3px;
-            background: var(--brick);
-            margin: 0.5rem auto;
-            border-radius: 3px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .service-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            transition: 0.3s;
-        }
-        .service-card:hover { transform: translateY(-8px); border-color: var(--brick); }
-        .service-card i { font-size: 2.5rem; color: var(--brick); margin-bottom: 1.2rem; }
-        .service-card h3 { margin-bottom: 0.8rem; }
-        .service-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
-            color: #fff;
-            text-decoration: none;
-            margin-top: 3rem;
-            transition: 0.3s;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(196,69,54,0.5); }
-        .footer {
-            background: var(--footer-bg);
-            border-top: 1px solid var(--border-subtle);
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-            margin-top: 4rem;
-        }
+        .container { max-width:1000px; margin:0 auto; padding:6rem 2rem 2rem; }
+        .section-header { text-align:center; margin-bottom:3rem; } .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem auto; border-radius:3px; }
+        .about-text { line-height:2.2; color:var(--text-secondary); text-align:justify; margin-bottom:3rem; background:var(--bg-card); padding:2rem; border-radius:16px; border:1px solid var(--border-subtle); }
+        .ceo-card { text-align:center; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:16px; padding:2.5rem; }
+        .ceo-card i { font-size:3rem; color:var(--brick); }
+        .ceo-card h3 { margin:1rem 0 0.5rem; }
+        .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem 2rem; margin-top:1.5rem; color:var(--text-secondary); }
+        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-muted); margin-top:4rem; }
     </style>
 </head>
 <body>
     <div class="mobile-overlay" id="mobileOverlay"></div>
-
     <nav class="navbar">
-        <a href="index.html" class="nav-brand">
-            <div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div>
-            <span class="brand-text">زیگورات<span>سازان</span></span>
-        </a>
+        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li>
-            <li><a href="projects.html">پروژه‌ها</a></li>
-            <li><a href="services.html" class="active-link">خدمات ما</a></li>
-            <li><a href="videos.html">ویدیو ها</a></li>
-            <li><a href="blog.html">وبلاگ</a></li>
-            <li><a href="about.html">درباره ما</a></li>
-            <li><a href="contact.html">تماس با ما</a></li>
-            <li><a href="https://www.instagram.com/zigguratsazan.group" target="_blank">اینستاگرام</a></li>
+            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li><li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li><li><a href="blog.html">وبلاگ</a></li><li><a href="about.html" class="active-link">درباره ما</a></li><li><a href="contact.html">تماس با ما</a></li>
         </ul>
         <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم"><i class="fa-solid fa-sun"></i></button>
-            <button class="hamburger" id="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
+            <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
         </div>
     </nav>
 
     <div class="container">
-        <div class="section-header">
-            <h1 class="section-title">خدمات تخصصی ساختمانی</h1>
-            <div class="section-line"></div>
-            <p style="color:var(--text-secondary); margin-top:1rem;">از طراحی تا اجرا، همراه شما هستیم</p>
+        <div class="section-header"><h1 class="section-title">شرکت معماری زیگورات سازان</h1><div class="section-line"></div></div>
+        <div class="about-text">
+            <p>شرکت زیگورات سازان در سال ۱۳۸۸ فعالیت خود را در زمینه طراحی و اجرای ساختمان با انواع متریال‌ها شروع نمود. این شرکت با بهره‌گیری از تیمی مجرب و متخصص، به سرعت توانست جایگاه خود را در صنعت ساختمان‌سازی شمال کشور تثبیت کند.</p>
+            <p style="margin-top:1.5rem;">امروز زیگورات سازان با بیش از ۵۰ نیروی متخصص، ۴ تیم اجرایی فعال و دفتر مرکزی در نوشهر، یکی از معتبرترین شرکت‌های ساختمانی مازندران محسوب می‌شود. این شرکت تاکنون در بیش از ۱۵ شهر ایران پروژه اجرا کرده و رضایت ۱۴۰+ کارفرما را جلب نموده است.</p>
+            <p style="margin-top:1.5rem;">ما در زیگورات سازان به کیفیت، زمان‌بندی دقیق و شفافیت در هزینه‌ها متعهد هستیم و افتخار می‌کنیم که در هر پروژه، نام زیگورات با اعتماد و اطمینان همراه بوده است.</p>
         </div>
-        <div class="services-grid">
-            <div class="service-card"><i class="fa-solid fa-house"></i><h3>طراحی و ساخت ویلا</h3><p>طراحی معماری ویلاهای مدرن و کلاسیک با متدهای روز دنیا و اجرای کامل با بهترین متریال.</p></div>
-            <div class="service-card"><i class="fa-solid fa-hard-hat"></i><h3>پیمانکاری صفر تا صد</h3><p>تحویل پروژه به صورت کلید به کلید شامل طراحی، اخذ پروانه، اجرا و دکوراسیون.</p></div>
-            <div class="service-card"><i class="fa-solid fa-paint-roller"></i><h3>بازسازی و نوسازی</h3><p>بازسازی ساختمان‌های فرسوده، تغییر کاربری و به‌روزرسانی تأسیسات.</p></div>
-            <div class="service-card"><i class="fa-solid fa-lightbulb"></i><h3>نورپردازی حرفه‌ای</h3><p>طراحی نور مخفی، نمای بیرونی و محوطه با جدیدترین تکنیک‌های روشنایی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-industry"></i><h3>سازه LSF</h3><p>اجرای سازه‌های سبک فولادی با سرعت بالا و هزینه مقرون به صرفه.</p></div>
-            <div class="service-card"><i class="fa-solid fa-building"></i><h3>نمای کامپوزیت</h3><p>پوشش مدرن ساختمان با ورق‌های آلومینیومی نسوز و ضد رطوبت.</p></div>
-            <div class="service-card"><i class="fa-solid fa-grip"></i><h3>سقف کاذب کناف</h3><p>اجرای سقف کاذب دکوراتیو با نورپردازی مخفی و عایق صوتی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-tree"></i><h3>محوطه‌سازی</h3><p>طراحی فضای سبز، آبنما، آلاچیق و سنگ‌فرش با متریال مقاوم.</p></div>
-            <div class="service-card"><i class="fa-solid fa-cubes"></i><h3>اسکلت بتنی و فلزی</h3><p>محاسبات سازه‌ای دقیق و اجرای اسکلت با نظارت مهندسین مجرب.</p></div>
-            <div class="service-card"><i class="fa-solid fa-pencil-ruler"></i><h3>طراحی معماری</h3><p>تهیه نقشه‌های فاز یک و دو، طراحی داخلی و سه بعدی‌سازی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-border-all"></i><h3>نمای میکروسمنت</h3><p>پوشش مدرن و بدون درز برای کف، دیوار و نما با قابلیت اجرا روی سطوح مختلف.</p></div>
-            <div class="service-card"><i class="fa-solid fa-couch"></i><h3>کابینت و کمد دیواری</h3><p>طراحی و ساخت کابینت‌های آشپزخانه و کمد دیواری با یراق‌آلات درجه یک.</p></div>
-        </div>
-        <div style="text-align:center;">
-            <a href="contact.html" class="btn"><i class="fa-solid fa-phone"></i> درخواست مشاوره رایگان</a>
+        <div class="ceo-card">
+            <i class="fa-solid fa-user-tie"></i>
+            <h3>مهندس عدنان رستمی</h3>
+            <p style="color:var(--text-secondary);">مدیر عامل و رئیس هیئت مدیره</p>
+            <div class="skills">
+                <span>✔ ۱۲ سال سابقه اجرایی</span>
+                <span>✔ مدرس دانشگاه</span>
+                <span>✔ کارشناسی ارشد معماری</span>
+                <span>✔ مجری ۱۳۰+ پروژه در کشور</span>
+                <span>✔ مدیر پروژه‌های بیمه آسیا</span>
+                <span>✔ نماینده ورق کامپوزیت در شمال</span>
+                <span>✔ نماینده چوب ترموود در شمال</span>
+                <span>✔ ۴ مقاله بین‌المللی</span>
+            </div>
         </div>
     </div>
 
@@ -231,41 +89,14 @@
             const navLinks = document.getElementById('navLinks');
             const overlay = document.getElementById('mobileOverlay');
             if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-                });
-                overlay.addEventListener('click', function () {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-                document.querySelectorAll('.nav-links a').forEach(function (link) {
-                    link.addEventListener('click', function () {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
+                hamburger.addEventListener('click', function () { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : ''; });
+                overlay.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+                document.querySelectorAll('.nav-links a').forEach(function (link) { link.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }); });
             }
         });
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') {
-            body.classList.add('dark-mode');
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun');
-            localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light');
-        });
+        const themeToggle = document.getElementById('themeToggle'); const body = document.body; const icon = themeToggle.querySelector('i');
+        if (localStorage.getItem('ziggurat-theme') === 'dark') { body.classList.add('dark-mode'); icon.classList.replace('fa-sun','fa-moon'); }
+        themeToggle.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun'); localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light'); });
     </script>
 </body>
 </html>
