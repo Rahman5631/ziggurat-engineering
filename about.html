@@ -13,6 +13,21 @@
             --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.08);
             --navbar-bg: rgba(255,255,255,0.95); --footer-bg: #f7f3ee;
         }
+        /* حالت تاریک */
+body.dark-mode {
+    --bg-deep: #1c1a18;
+    --bg-card: #2a2521;
+    --brick: #d6685a;
+    --brick-dark: #a34b3f;
+    --text-primary: #ece6df;
+    --text-secondary: #c9bfb3;
+    --text-muted: #9d9184;
+    --border-subtle: rgba(214, 104, 90, 0.3);
+    --border-brick: rgba(214, 104, 90, 0.4);
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
+    --navbar-bg: rgba(28, 26, 24, 0.95);
+    --footer-bg: #1c1a18;
+}
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); line-height:1.7; transition:0.3s; }
         .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle); box-shadow:0 4px 30px rgba(0,0,0,0.08); }
