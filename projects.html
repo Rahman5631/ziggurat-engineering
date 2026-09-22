@@ -1,430 +1,841 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پروژه‌ها | زیگورات سازان</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-deep: #fcf9f5;
-            --bg-card: #ffffff;
-            --brick: #c44536;
-            --brick-dark: #8b3a32;
-            --text-primary: #2c241b;
-            --text-secondary: #4a4038;
-            --text-muted: #7a6f65;
-            --border-subtle: rgba(196, 69, 54, 0.2);
-            --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --navbar-bg: rgba(255, 255, 255, 0.95);
-            --footer-bg: #f7f3ee;
-        }
-        /* حالت تاریک */
-body.dark-mode {
-    --bg-deep: #1c1a18;
-    --bg-card: #2a2521;
-    --brick: #d6685a;
-    --brick-dark: #a34b3f;
-    --text-primary: #ece6df;
-    --text-secondary: #c9bfb3;
-    --text-muted: #9d9184;
-    --border-subtle: rgba(214, 104, 90, 0.3);
-    --border-brick: rgba(214, 104, 90, 0.4);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
-    --navbar-bg: rgba(28, 26, 24, 0.95);
-    --footer-bg: #1c1a18;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>Projects | Zigguratsazan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            transition: background 0.3s, color 0.3s;
-        }
+  :root {
+    --bg: #000000;
+    --orange: #f5a623;
+    --orange-l: #ffc761;
+    --orange-d: #e08b1f;
+    --grad-txt: linear-gradient(180deg, #ffc761 0%, #f5a623 100%);
+    --grad-line: linear-gradient(180deg, #ffc761 0%, #f5a623 50%, #e08b1f 100%);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
 
-        /* ========== نوار ناوبری ========== */
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-        .brand-icon {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: #fff; font-weight: 900;
-        }
-        .brand-text { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); }
-        .brand-text span { color: var(--brick); }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
 
-        /* منوی دسکتاپ */
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.8rem;
-            align-items: center;
-            transition: 0.4s ease;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: 0.25s;
-        }
-        .nav-links a:hover { color: var(--brick); }
-        .nav-links a.active-link { color: var(--brick); font-weight: 700; }
+  body {
+    font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--orange);
+    position: fixed;
+    inset: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            width: 38px; height: 38px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .hamburger {
-            display: none; /* در دسکتاپ مخفی */
-            background: none;
-            border: none;
-            cursor: pointer;
-            flex-direction: column;
-            gap: 6px;
-            padding: 8px;
-        }
-        .hamburger span {
-            width: 28px;
-            height: 2.5px;
-            background: var(--text-primary);
-            border-radius: 4px;
-            transition: 0.25s;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+  /* ==========================================
+     PAGE FRAME — corner brackets
+     ========================================== */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .page-frame .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange-l);
+    opacity: 0.85;
+    animation: cornerPulse 4s ease-in-out infinite;
+  }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.5; border-color: #ffc761; }
+    50% { opacity: 1; border-color: #f5a623; }
+  }
+  .page-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .page-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .page-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .page-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
 
-        /* موبایل */
-        @media (max-width: 900px) {
-            .hamburger {
-                display: flex;  /* در موبایل نمایش داده می‌شود */
-            }
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 75%;
-                max-width: 380px;
-                height: 100vh;
-                background: var(--navbar-bg);
-                backdrop-filter: blur(25px);
-                flex-direction: column;
-                justify-content: center;
-                gap: 2.5rem;
-                transition: 0.4s ease;
-                border-left: 1px solid var(--border-subtle);
-                box-shadow: -10px 0 40px rgba(0,0,0,0.2);
-            }
-            .nav-links.active { right: 0; }
-            .mobile-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-                opacity: 0;
-                pointer-events: none;
-                transition: 0.4s;
-            }
-            .mobile-overlay.active { opacity: 1; pointer-events: all; }
-        }
+  /* ==========================================
+     HEADER
+     ========================================== */
+  .header {
+    position: absolute;
+    top: max(24px, 3.2vh);
+    left: 0;
+    right: 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
 
-        /* محتوا */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem 2rem;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-title { font-size: 2.2rem; font-weight: 800; }
-        .section-line {
-            width: 70px; height: 3px;
-            background: var(--brick);
-            margin: 0.5rem auto;
-            border-radius: 3px;
-        }
-        .filter-btns {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-        }
-        .filter-btn {
-            padding: 0.6rem 1.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--brick);
-            color: #fff;
-            border-color: var(--brick);
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        .project-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            transition: 0.3s;
-        }
-        .project-card:hover { transform: translateY(-6px); border-color: var(--brick); }
-        .project-img {
-            height: 220px;
-            background: linear-gradient(135deg, rgba(196,69,54,0.1), rgba(178,139,64,0.1));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; color: var(--brick);
-        }
-        .project-info { padding: 1.5rem; }
-        .project-info h3 { margin-bottom: 0.4rem; }
-        .project-info p { color: var(--text-secondary); }
-        .project-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            background: rgba(196,69,54,0.1);
-            color: var(--brick);
-            padding: 0.2rem 0.8rem;
-            border-radius: 6px;
-            margin-bottom: 0.7rem;
-        }
-        .footer {
-            background: var(--footer-bg);
-            border-top: 1px solid var(--border-subtle);
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-            margin-top: 4rem;
-        }
-    </style>
+  .small-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 6px;
+    margin-left: 0.5em;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRTL 1.4s var(--ease) 0.3s forwards;
+  }
+
+  @keyframes slideRTL {
+    0% { opacity: 0; transform: translateX(60px); letter-spacing: 0.9em; }
+    100% { opacity: 1; transform: translateX(0); letter-spacing: 0.5em; }
+  }
+
+  .big-line {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .big-line .letter {
+    display: inline-block;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: letterLTR 0.8s var(--ease) forwards;
+  }
+
+  @keyframes letterLTR {
+    0% { opacity: 0; transform: translateX(-30px); }
+    70% { opacity: 1; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ==========================================
+     FILTER BAR — horizontal scroll, no border, text only
+     ========================================== */
+  .filters {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 88px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    padding: 8px 0 14px;
+    /* fade edges */
+    mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filters::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .filters-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 32px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 2px;
+    color: #6f6350;
+    cursor: pointer;
+    transition: color 0.4s var(--ease), letter-spacing 0.4s var(--ease);
+    letter-spacing: 0.3px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--grad-line);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .filter-btn:hover,
+  .filter-btn:active {
+    color: #d8bd8a;
+  }
+
+  .filter-btn.active {
+    color: var(--orange-l);
+    font-weight: 500;
+  }
+
+  .filter-btn.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ==========================================
+     MAIN CONTENT (scrollable area)
+     ========================================== */
+  .content {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 140px);
+    left: 0;
+    right: 0;
+    bottom: calc(20vh + var(--safe-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 24px 40px;
+    z-index: 2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ==========================================
+     PROJECTS GRID
+     ========================================== */
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .project-card {
+    position: relative;
+    background: #0a0806;
+    border: 1.5px solid rgba(245, 166, 35, 0.28);
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--ease);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardIn 0.9s var(--ease) forwards;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .project-card:nth-child(1) { animation-delay: 0.4s; }
+  .project-card:nth-child(2) { animation-delay: 0.55s; }
+  .project-card:nth-child(3) { animation-delay: 0.7s; }
+  .project-card:nth-child(4) { animation-delay: 0.85s; }
+  .project-card:nth-child(5) { animation-delay: 1.0s; }
+  .project-card:nth-child(6) { animation-delay: 1.15s; }
+
+  .project-card:hover,
+  .project-card:active {
+    border-color: var(--orange-l);
+    box-shadow: 0 0 24px rgba(245, 166, 35, 0.25);
+    transform: translateY(-3px);
+  }
+
+  .project-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #0d0a08, #050403);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+  }
+
+  .project-thumb svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .project-info {
+    padding: 14px 16px 16px;
+  }
+
+  .project-tag {
+    display: inline-block;
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--orange-l);
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .project-title {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f0e6d2;
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+  }
+
+  .project-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #7a6f5c;
+    letter-spacing: 0.3px;
+  }
+
+  /* ==========================================
+     BOTTOM DOCK — hidden by default, toggle on tap
+     ========================================== */
+  .dock {
+    position: absolute;
+    bottom: calc(2vh + var(--safe-bottom));
+    left: 6vw;
+    right: 6vw;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    z-index: 10;
+  }
+
+  body.dock-visible .dock {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dock-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 2px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px) scale(0.7);
+  }
+
+  body.dock-visible .dock-btn {
+    animation: btnIn 0.7s var(--ease) forwards;
+  }
+  body.dock-visible .dock-btn:nth-child(1) { animation-delay: 0.10s; }
+  body.dock-visible .dock-btn:nth-child(2) { animation-delay: 0.20s; }
+  body.dock-visible .dock-btn:nth-child(3) { animation-delay: 0.30s; }
+  body.dock-visible .dock-btn:nth-child(4) { animation-delay: 0.40s; }
+  body.dock-visible .dock-btn:nth-child(5) { animation-delay: 0.50s; }
+  body.dock-visible .dock-btn:nth-child(6) { animation-delay: 0.60s; }
+  body.dock-visible .dock-btn:nth-child(7) { animation-delay: 0.70s; }
+
+  @keyframes btnIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.55));
+    transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+  }
+
+  .dock-btn:active svg {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.9));
+  }
+
+  .dock-btn.active svg {
+    filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.85));
+  }
+
+  .dock-btn .lbl {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: #8a7a5f;
+    transition: color 0.4s var(--ease);
+    white-space: nowrap;
+  }
+
+  .dock-btn.active .lbl,
+  .dock-btn:active .lbl {
+    color: var(--orange-l);
+  }
+
+  .dock-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg,
+      var(--orange-l) 0 4px,
+      transparent 4px 8px);
+    background-size: 8px 100%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease) 0.3s;
+  }
+
+  body.dock-visible .dock-line {
+    opacity: 0.85;
+  }
+
+  /* ==========================================
+     MOBILE TUNING
+     ========================================== */
+  @media (max-width: 380px) {
+    .small-line {
+      font-size: 10px;
+    }
+    .big-line {
+      font-size: 20px;
+    }
+    .filter-btn {
+      font-size: 0.8rem;
+    }
+    .dock-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+    .dock-btn .lbl {
+      font-size: 0.54rem;
+    }
+    .project-title {
+      font-size: 0.92rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .project-card { opacity: 1; transform: none; }
+    .big-line .letter { opacity: 1; transform: none; }
+    .small-line { opacity: 1; transform: none; }
+    .dock-btn { opacity: 1; }
+    .dock { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand">
-            <div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div>
-            <span class="brand-text">زیگورات<span>سازان</span></span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li>
-            <li><a href="projects.html" class="active-link">پروژه‌ها</a></li>
-            <li><a href="services.html">خدمات ما</a></li>
-            <li><a href="videos.html">ویدیو ها</a></li>
-            <li><a href="blog.html">وبلاگ</a></li>
-            <li><a href="about.html">درباره ما</a></li>
-            <li><a href="contact.html">تماس با ما</a></li>
-            <li><a href="https://www.instagram.com/zigguratsazan.group" target="_blank">اینستاگرام</a></li>
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
-                <i class="fa-solid fa-sun"></i>
-            </button>
-            <button class="hamburger" id="hamburger" aria-label="منو">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+  <!-- Hidden SVG defs -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;">
+    <defs>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+      <linearGradient id="thumbGrad1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+      <linearGradient id="thumbGrad2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#e08b1f"/>
+        <stop offset="100%" stop-color="#ffc761"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
-    <div class="container">
-        <div class="section-header">
-            <h1 class="section-title">نمونه‌کارهای ما</h1>
-            <div class="section-line"></div>
-            <p style="color:var(--text-secondary); margin-top:1rem;">مجموعه‌ای از پروژه‌های طراحی و اجرا شده توسط تیم زیگورات سازان</p>
-        </div>
+  <!-- ========== PAGE FRAME ========== -->
+  <div class="page-frame" aria-hidden="true">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
 
-        <div class="filter-btns">
-            <button class="filter-btn active" onclick="filterProjects('all')">همه</button>
-            <button class="filter-btn" onclick="filterProjects('villa')">ویلایی</button>
-            <button class="filter-btn" onclick="filterProjects('commercial')">تجاری</button>
-            <button class="filter-btn" onclick="filterProjects('renovation')">بازسازی</button>
-        </div>
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <div class="small-line">Portfolio</div>
+    <div class="big-line" id="bigLine" aria-label="ZigguratProjects"></div>
+  </div>
 
-        <div class="projects-grid" id="projectsGrid">
-            <div class="project-card" data-category="villa">
-                <div class="project-img"><i class="fa-solid fa-house"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">ویلایی</span>
-                    <h3>پروژه ویلا دشت ساری</h3>
-                    <p>طراحی و اجرای ویلای مدرن با اسکلت بتنی.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="villa">
-                <div class="project-img"><i class="fa-solid fa-umbrella-beach"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">ویلایی</span>
-                    <h3>پروژه ویلای عالیواک</h3>
-                    <p>نظارت و اجرای کامل ویلا در منطقه ساحلی.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="renovation">
-                <div class="project-img"><i class="fa-solid fa-water"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">بازسازی</span>
-                    <h3>پروژه ویلای فرح آباد</h3>
-                    <p>بازسازی و نوسازی ویلای قدیمی.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="commercial">
-                <div class="project-img"><i class="fa-solid fa-building"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">تجاری</span>
-                    <h3>مجتمع تجاری نور</h3>
-                    <p>طراحی و اجرای مجتمع تجاری ۵ طبقه.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="villa">
-                <div class="project-img"><i class="fa-solid fa-tree-city"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">ویلایی</span>
-                    <h3>طراحی ویلا ساری-مهدشت</h3>
-                    <p>پلان آزاد با نورگیری عالی.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="renovation">
-                <div class="project-img"><i class="fa-solid fa-hammer"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">بازسازی</span>
-                    <h3>بازسازی ساختمان اداری</h3>
-                    <p>تبدیل ساختمان فرسوده به مدرن.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="commercial">
-                <div class="project-img"><i class="fa-solid fa-city"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">تجاری</span>
-                    <h3>برج مسکونی کاسپین</h3>
-                    <p>اجرای کامل برج ۲۰ طبقه در نوشهر.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="villa">
-                <div class="project-img"><i class="fa-solid fa-couch"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">ویلایی</span>
-                    <h3>طراحی داخلی بابلسر</h3>
-                    <p>دکوراسیون داخلی لوکس و مدرن.</p>
-                </div>
-            </div>
-            <div class="project-card" data-category="renovation">
-                <div class="project-img"><i class="fa-solid fa-paint-roller"></i></div>
-                <div class="project-info">
-                    <span class="project-tag">بازسازی</span>
-                    <h3>نوسازی ویلای چالوس</h3>
-                    <p>بازسازی کامل و تغییر دکوراسیون.</p>
-                </div>
-            </div>
-        </div>
+  <!-- ========== FILTERS (horizontal scroll, text only) ========== -->
+  <div class="filters" id="filters">
+    <div class="filters-inner">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="villa">ویلایی</button>
+      <button class="filter-btn" data-filter="residential">مسکونی</button>
+      <button class="filter-btn" data-filter="commercial">تجاری</button>
+      <button class="filter-btn" data-filter="renovation">بازسازی</button>
+      <button class="filter-btn" data-filter="office">اداری</button>
     </div>
+  </div>
 
-    <footer class="footer">
-        <p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p>
-    </footer>
+  <!-- ========== CONTENT ========== -->
+  <div class="content">
 
-    <script>
-        // ===== منوی همبرگری =====
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            const overlay = document.getElementById('mobileOverlay');
+    <!-- Projects grid -->
+    <div class="projects" id="projectsGrid">
 
-            if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-                });
+      <!-- 1. Villa -->
+      <a class="project-card" data-cat="villa" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="170" x2="300" y2="170" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <path d="M60 170 L60 100 L160 40 L260 100 L260 170 Z" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <line x1="60" y1="130" x2="160" y2="70" stroke="#f5a623" stroke-width="1" opacity="0.4"/>
+            <line x1="160" y1="70" x2="260" y2="130" stroke="#f5a623" stroke-width="1" opacity="0.4"/>
+            <rect x="100" y="120" width="26" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="180" y="120" width="26" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="140" y="135" width="20" height="35" fill="url(#thumbGrad1)" opacity="0.75"/>
+            <circle cx="265" cy="50" r="18" stroke="#f5a623" stroke-width="1.2" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">ویلایی</span>
+          <div class="project-title">ویلا ساحلی رویان</div>
+          <div class="project-meta">مازندران • ۱۴۰۳</div>
+        </div>
+      </a>
 
-                overlay.addEventListener('click', function () {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
+      <!-- 2. Residential -->
+      <a class="project-card" data-cat="residential" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="180" x2="300" y2="180" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="110" y="30" width="100" height="150" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <line x1="110" y1="60" x2="210" y2="60" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <line x1="110" y1="90" x2="210" y2="90" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <line x1="110" y1="120" x2="210" y2="120" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <line x1="110" y1="150" x2="210" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <rect x="122" y="72" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="146" y="72" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="170" y="72" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="122" y="102" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="146" y="102" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="170" y="102" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="122" y="132" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="146" y="132" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="170" y="132" width="14" height="14" fill="#f5a623" opacity="0.35"/>
+            <rect x="220" y="80" width="60" height="100" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.2" opacity="0.6"/>
+            <line x1="220" y1="110" x2="280" y2="110" stroke="#f5a623" stroke-width="0.6" opacity="0.4"/>
+            <line x1="220" y1="140" x2="280" y2="140" stroke="#f5a623" stroke-width="0.6" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">مسکونی</span>
+          <div class="project-title">برج کاسپین</div>
+          <div class="project-meta">نوشهر • ۱۴۰۲</div>
+        </div>
+      </a>
 
-                document.querySelectorAll('.nav-links a').forEach(function (link) {
-                    link.addEventListener('click', function () {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
+      <!-- 3. Commercial -->
+      <a class="project-card" data-cat="commercial" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="175" x2="300" y2="175" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="60" y="50" width="200" height="125" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <rect x="75" y="65" width="40" height="95" fill="#f5a623" opacity="0.15"/>
+            <rect x="125" y="65" width="40" height="95" fill="#f5a623" opacity="0.15"/>
+            <rect x="175" y="65" width="40" height="95" fill="#f5a623" opacity="0.15"/>
+            <rect x="225" y="65" width="25" height="95" fill="#f5a623" opacity="0.15"/>
+            <line x1="55" y1="50" x2="265" y2="50" stroke="#f5a623" stroke-width="2" opacity="0.8"/>
+            <rect x="140" y="140" width="30" height="35" fill="url(#thumbGrad1)" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">تجاری</span>
+          <div class="project-title">مجتمع تجاری نور</div>
+          <div class="project-meta">محمودآباد • ۱۴۰۲</div>
+        </div>
+      </a>
+
+      <!-- 4. Renovation -->
+      <a class="project-card" data-cat="renovation" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="175" x2="300" y2="175" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="50" y="60" width="90" height="115" fill="none" stroke="#f5a623" stroke-width="1.2" opacity="0.35" stroke-dasharray="4 4"/>
+            <rect x="150" y="50" width="120" height="125" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <rect x="165" y="75" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="200" y="75" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="235" y="75" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="165" y="120" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="200" y="120" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="235" y="120" width="25" height="30" fill="#f5a623" opacity="0.3"/>
+            <path d="M145 115 L152 115 M148 112 L152 115 L148 118" stroke="#ffc761" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">بازسازی</span>
+          <div class="project-title">نوسازی ویلای چالوس</div>
+          <div class="project-meta">چالوس • ۱۴۰۱</div>
+        </div>
+      </a>
+
+      <!-- 5. Villa -->
+      <a class="project-card" data-cat="villa" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="175" x2="300" y2="175" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="70" y="70" width="100" height="105" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <rect x="170" y="100" width="90" height="75" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <line x1="70" y1="120" x2="170" y2="120" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <line x1="170" y1="140" x2="260" y2="140" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <rect x="85" y="85" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+            <rect x="130" y="85" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+            <rect x="85" y="135" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+            <rect x="130" y="135" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+            <rect x="185" y="115" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+            <rect x="225" y="115" width="20" height="22" fill="#f5a623" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">ویلایی</span>
+          <div class="project-title">ویلای دشت ساری</div>
+          <div class="project-meta">ساری • ۱۴۰۱</div>
+        </div>
+      </a>
+
+      <!-- 6. Office -->
+      <a class="project-card" data-cat="office" href="#">
+        <div class="project-thumb">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="200" fill="#0a0806"/>
+            <line x1="20" y1="175" x2="300" y2="175" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="60" y="80" width="200" height="95" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.8"/>
+            <rect x="80" y="55" width="80" height="25" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.4"/>
+            <rect x="75" y="100" width="35" height="50" fill="#f5a623" opacity="0.25"/>
+            <rect x="125" y="100" width="35" height="50" fill="#f5a623" opacity="0.25"/>
+            <rect x="175" y="100" width="35" height="50" fill="#f5a623" opacity="0.25"/>
+            <rect x="225" y="100" width="25" height="50" fill="#f5a623" opacity="0.25"/>
+            <rect x="150" y="140" width="22" height="35" fill="url(#thumbGrad1)" opacity="0.65"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">اداری</span>
+          <div class="project-title">مجتمع اداری رخ</div>
+          <div class="project-meta">ساری • ۱۴۰۰</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM DOCK (hidden by default) ========== -->
+  <nav class="dock" id="dock" aria-label="Main menu">
+    <div class="dock-line" aria-hidden="true"></div>
+    <div class="dock-inner">
+
+      <a class="dock-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 3l9 8.5"/>
+          <path d="M5 10.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9.5"/>
+        </svg>
+        <span class="lbl">خانه</span>
+      </a>
+
+      <a class="dock-btn active" href="projects.html" aria-label="Projects">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V6l7-3v18"/>
+          <path d="M11 8h9v13"/>
+          <line x1="7" y1="9" x2="7" y2="9.01"/>
+          <line x1="7" y1="13" x2="7" y2="13.01"/>
+          <line x1="7" y1="17" x2="7" y2="17.01"/>
+          <line x1="15" y1="12" x2="15" y2="12.01"/>
+          <line x1="15" y1="16" x2="15" y2="16.01"/>
+        </svg>
+        <span class="lbl">پروژه‌ها</span>
+      </a>
+
+      <a class="dock-btn" href="services.html" aria-label="Services">
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+        </svg>
+        <span class="lbl">خدمات</span>
+      </a>
+
+      <a class="dock-btn" href="videos.html" aria-label="Videos">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M10 8.5 16 12l-6 3.5z" fill="url(#iconGrad)" stroke="none"/>
+        </svg>
+        <span class="lbl">ویدیوها</span>
+      </a>
+
+      <a class="dock-btn" href="blog.html" aria-label="Blog">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 6.5C10.5 5 8 4.5 4 5v13c4-.5 6.5 0 8 1.5"/>
+          <path d="M12 6.5C13.5 5 16 4.5 20 5v13c-4-.5-6.5 0-8 1.5"/>
+          <line x1="12" y1="6.5" x2="12" y2="19.5"/>
+        </svg>
+        <span class="lbl">وبلاگ</span>
+      </a>
+
+      <a class="dock-btn" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+        </svg>
+        <span class="lbl">درباره</span>
+      </a>
+
+      <a class="dock-btn" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+        </svg>
+        <span class="lbl">تماس</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // ==========================================
+      // BUILD TITLE — letter by letter (LTR)
+      // ==========================================
+      const bigLine = document.getElementById("bigLine");
+      const text = "ZigguratProjects";
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const delay = (0.5 + i * 0.07).toFixed(2);
+        html += '<span class="letter" style="animation-delay:' + delay + 's">' + text[i] + '</span>';
+      }
+      bigLine.innerHTML = html;
+
+      // ==========================================
+      // FILTER
+      // ==========================================
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const projectCards = document.querySelectorAll(".project-card");
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.dataset.filter;
+
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          projectCards.forEach(function (card, idx) {
+            const cat = card.dataset.cat;
+            const match = (filter === "all" || cat === filter);
+
+            if (match) {
+              card.style.display = "";
+              card.style.animation = "none";
+              void card.offsetWidth;
+              card.style.animation = "cardIn 0.7s var(--ease) " + (idx * 0.05) + "s forwards";
+            } else {
+              card.style.display = "none";
             }
+          });
         });
+      });
 
-        // ===== فیلتر پروژه‌ها =====
-        function filterProjects(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.project-card').forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+      // ==========================================
+      // TOGGLE DOCK ON PAGE TAP
+      // ==========================================
+      const body = document.body;
 
-        // ===== تغییر تم =====
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') {
-            body.classList.add('dark-mode');
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun');
-            localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light');
-        });
-    </script>
+      // Enable toggle after a short entrance delay
+      let ready = false;
+      setTimeout(function () { ready = true; }, 2500);
+
+      // Listen for taps on the whole page (excluding links/buttons and scrollable areas)
+      document.addEventListener("click", function (e) {
+        // Ignore taps on links, buttons, and the dock itself
+        if (e.target.closest("a, button, .dock, .filters")) return;
+        // Ignore taps inside the scrollable content (so scrolling doesn't toggle)
+        if (e.target.closest(".content")) return;
+
+        if (!ready) return;
+        body.classList.toggle("dock-visible");
+      });
+
+      // ==========================================
+      // Prevent double-tap zoom & pinch zoom
+      // ==========================================
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
 </body>
 </html>
