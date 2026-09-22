@@ -1,286 +1,746 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خدمات | زیگورات سازان</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* کپی کامل استایل‌های صفحه projects.html */
-        :root {
-            --bg-deep: #fcf9f5;
-            --bg-card: #ffffff;
-            --brick: #c44536;
-            --brick-dark: #8b3a32;
-            --text-primary: #2c241b;
-            --text-secondary: #4a4038;
-            --text-muted: #7a6f65;
-            --border-subtle: rgba(196, 69, 54, 0.2);
-            --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --navbar-bg: rgba(255, 255, 255, 0.95);
-            --footer-bg: #f7f3ee;
-        }
-        /* حالت تاریک */
-body.dark-mode {
-    --bg-deep: #1c1a18;
-    --bg-card: #2a2521;
-    --brick: #d6685a;
-    --brick-dark: #a34b3f;
-    --text-primary: #ece6df;
-    --text-secondary: #c9bfb3;
-    --text-muted: #9d9184;
-    --border-subtle: rgba(214, 104, 90, 0.3);
-    --border-brick: rgba(214, 104, 90, 0.4);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
-    --navbar-bg: rgba(28, 26, 24, 0.95);
-    --footer-bg: #1c1a18;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>Services | Zigguratsazan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            transition: background 0.3s, color 0.3s;
-        }
+  :root {
+    --bg: #000000;
+    --orange: #f5a623;
+    --orange-l: #ffc761;
+    --orange-d: #e08b1f;
+    --grad-txt: linear-gradient(180deg, #ffc761 0%, #f5a623 100%);
+    --grad-line: linear-gradient(180deg, #ffc761 0%, #f5a623 50%, #e08b1f 100%);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
 
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-        }
-        .nav-brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .brand-icon {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: #fff; font-weight: 900;
-        }
-        .brand-text { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); }
-        .brand-text span { color: var(--brick); }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.8rem;
-            align-items: center;
-            transition: 0.4s ease;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: 0.25s;
-        }
-        .nav-links a:hover { color: var(--brick); }
-        .nav-links a.active-link { color: var(--brick); font-weight: 700; }
-        .nav-controls { display: flex; align-items: center; gap: 1rem; }
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            width: 38px; height: 38px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 6px; padding: 8px; }
-        .hamburger span {
-            width: 28px; height: 2.5px;
-            background: var(--text-primary);
-            border-radius: 4px;
-            transition: 0.25s;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
 
-        @media (max-width: 900px) {
-            .hamburger { display: flex; }
-            .nav-links {
-                position: fixed;
-                top: 0; right: -100%;
-                width: 75%; max-width: 380px; height: 100vh;
-                background: var(--navbar-bg);
-                backdrop-filter: blur(25px);
-                flex-direction: column;
-                justify-content: center;
-                gap: 2.5rem;
-                transition: 0.4s ease;
-                border-left: 1px solid var(--border-subtle);
-                box-shadow: -10px 0 40px rgba(0,0,0,0.2);
-            }
-            .nav-links.active { right: 0; }
-            .mobile-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-                opacity: 0;
-                pointer-events: none;
-                transition: 0.4s;
-            }
-            .mobile-overlay.active { opacity: 1; pointer-events: all; }
-        }
+  body {
+    font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--orange);
+    position: fixed;
+    inset: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem 2rem;
-        }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title { font-size: 2.2rem; font-weight: 800; }
-        .section-line {
-            width: 70px; height: 3px;
-            background: var(--brick);
-            margin: 0.5rem auto;
-            border-radius: 3px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .service-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            transition: 0.3s;
-        }
-        .service-card:hover { transform: translateY(-8px); border-color: var(--brick); }
-        .service-card i { font-size: 2.5rem; color: var(--brick); margin-bottom: 1.2rem; }
-        .service-card h3 { margin-bottom: 0.8rem; }
-        .service-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--brick-dark), var(--brick));
-            color: #fff;
-            text-decoration: none;
-            margin-top: 3rem;
-            transition: 0.3s;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(196,69,54,0.5); }
-        .footer {
-            background: var(--footer-bg);
-            border-top: 1px solid var(--border-subtle);
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-            margin-top: 4rem;
-        }
-    </style>
+  /* ==========================================
+     PAGE FRAME
+     ========================================== */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .page-frame .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange-l);
+    opacity: 0.85;
+    animation: cornerPulse 4s ease-in-out infinite;
+  }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.5; border-color: #ffc761; }
+    50% { opacity: 1; border-color: #f5a623; }
+  }
+  .page-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .page-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .page-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .page-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  /* ==========================================
+     HEADER
+     ========================================== */
+  .header {
+    position: absolute;
+    top: max(24px, 3.2vh);
+    left: 0;
+    right: 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .small-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 6px;
+    margin-left: 0.5em;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRTL 1.4s var(--ease) 0.3s forwards;
+  }
+
+  @keyframes slideRTL {
+    0% { opacity: 0; transform: translateX(60px); letter-spacing: 0.9em; }
+    100% { opacity: 1; transform: translateX(0); letter-spacing: 0.5em; }
+  }
+
+  .big-line {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .big-line .letter {
+    display: inline-block;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: letterLTR 0.8s var(--ease) forwards;
+  }
+
+  @keyframes letterLTR {
+    0% { opacity: 0; transform: translateX(-30px); }
+    70% { opacity: 1; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ==========================================
+     FILTER BAR — horizontal scroll
+     ========================================== */
+  .filters {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 88px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0 14px;
+    mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 32px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 2px;
+    color: #6f6350;
+    cursor: pointer;
+    transition: color 0.4s var(--ease);
+    letter-spacing: 0.3px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--grad-line);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .filter-btn:hover,
+  .filter-btn:active {
+    color: #d8bd8a;
+  }
+
+  .filter-btn.active {
+    color: var(--orange-l);
+    font-weight: 500;
+  }
+
+  .filter-btn.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ==========================================
+     CONTENT
+     ========================================== */
+  .content {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 140px);
+    left: 0;
+    right: 0;
+    bottom: calc(20vh + var(--safe-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 24px 40px;
+    z-index: 2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ==========================================
+     SERVICES GRID
+     ========================================== */
+  .services {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .services {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .service-card {
+    position: relative;
+    background: #0a0806;
+    border: 1.5px solid rgba(245, 166, 35, 0.28);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--ease);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardIn 0.9s var(--ease) forwards;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .service-card:nth-child(1) { animation-delay: 0.4s; }
+  .service-card:nth-child(2) { animation-delay: 0.55s; }
+  .service-card:nth-child(3) { animation-delay: 0.7s; }
+  .service-card:nth-child(4) { animation-delay: 0.85s; }
+  .service-card:nth-child(5) { animation-delay: 1.0s; }
+  .service-card:nth-child(6) { animation-delay: 1.15s; }
+
+  .service-card:hover,
+  .service-card:active {
+    border-color: var(--orange-l);
+    box-shadow: 0 0 24px rgba(245, 166, 35, 0.25);
+    transform: translateY(-3px);
+  }
+
+  /* Icon */
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(245, 166, 35, 0.35);
+    border-radius: 8px;
+    background: rgba(245, 166, 35, 0.05);
+    transition: all 0.5s var(--ease);
+  }
+
+  .service-card:hover .service-icon,
+  .service-card:active .service-icon {
+    border-color: var(--orange-l);
+    background: rgba(245, 166, 35, 0.12);
+    box-shadow: 0 0 16px rgba(245, 166, 35, 0.3);
+  }
+
+  .service-icon svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.5));
+  }
+
+  /* Number badge */
+  .service-num {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #6f6350;
+    letter-spacing: 1.5px;
+  }
+
+  .service-title {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f0e6d2;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+  }
+
+  .service-desc {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #8a7a5f;
+    line-height: 1.75;
+    letter-spacing: 0.1px;
+  }
+
+  /* ==========================================
+     BOTTOM DOCK — hidden by default
+     ========================================== */
+  .dock {
+    position: absolute;
+    bottom: calc(2vh + var(--safe-bottom));
+    left: 6vw;
+    right: 6vw;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    z-index: 10;
+  }
+
+  body.dock-visible .dock {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dock-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 2px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px) scale(0.7);
+  }
+
+  body.dock-visible .dock-btn {
+    animation: btnIn 0.7s var(--ease) forwards;
+  }
+  body.dock-visible .dock-btn:nth-child(1) { animation-delay: 0.10s; }
+  body.dock-visible .dock-btn:nth-child(2) { animation-delay: 0.20s; }
+  body.dock-visible .dock-btn:nth-child(3) { animation-delay: 0.30s; }
+  body.dock-visible .dock-btn:nth-child(4) { animation-delay: 0.40s; }
+  body.dock-visible .dock-btn:nth-child(5) { animation-delay: 0.50s; }
+  body.dock-visible .dock-btn:nth-child(6) { animation-delay: 0.60s; }
+  body.dock-visible .dock-btn:nth-child(7) { animation-delay: 0.70s; }
+
+  @keyframes btnIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.55));
+    transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+  }
+
+  .dock-btn:active svg {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.9));
+  }
+
+  .dock-btn.active svg {
+    filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.85));
+  }
+
+  .dock-btn .lbl {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: #8a7a5f;
+    transition: color 0.4s var(--ease);
+    white-space: nowrap;
+  }
+
+  .dock-btn.active .lbl,
+  .dock-btn:active .lbl {
+    color: var(--orange-l);
+  }
+
+  .dock-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg,
+      var(--orange-l) 0 4px,
+      transparent 4px 8px);
+    background-size: 8px 100%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease) 0.3s;
+  }
+
+  body.dock-visible .dock-line {
+    opacity: 0.85;
+  }
+
+  /* ==========================================
+     MOBILE TUNING
+     ========================================== */
+  @media (max-width: 380px) {
+    .small-line { font-size: 10px; }
+    .big-line { font-size: 20px; }
+    .filter-btn { font-size: 0.8rem; }
+    .dock-btn svg { width: 22px; height: 22px; }
+    .dock-btn .lbl { font-size: 0.54rem; }
+    .service-title { font-size: 0.98rem; }
+    .service-desc { font-size: 0.78rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .service-card { opacity: 1; transform: none; }
+    .big-line .letter { opacity: 1; transform: none; }
+    .small-line { opacity: 1; transform: none; }
+    .dock-btn { opacity: 1; }
+    .dock { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand">
-            <div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div>
-            <span class="brand-text">زیگورات<span>سازان</span></span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li>
-            <li><a href="projects.html">پروژه‌ها</a></li>
-            <li><a href="services.html" class="active-link">خدمات ما</a></li>
-            <li><a href="videos.html">ویدیو ها</a></li>
-            <li><a href="blog.html">وبلاگ</a></li>
-            <li><a href="about.html">درباره ما</a></li>
-            <li><a href="contact.html">تماس با ما</a></li>
-            <li><a href="https://www.instagram.com/zigguratsazan.group" target="_blank">اینستاگرام</a></li>
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم"><i class="fa-solid fa-sun"></i></button>
-            <button class="hamburger" id="hamburger" aria-label="منو"><span></span><span></span><span></span></button>
-        </div>
-    </nav>
+  <!-- Hidden SVG defs -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;">
+    <defs>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
-    <div class="container">
-        <div class="section-header">
-            <h1 class="section-title">خدمات تخصصی ساختمانی</h1>
-            <div class="section-line"></div>
-            <p style="color:var(--text-secondary); margin-top:1rem;">از طراحی تا اجرا، همراه شما هستیم</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card"><i class="fa-solid fa-house"></i><h3>طراحی و ساخت ویلا</h3><p>طراحی معماری ویلاهای مدرن و کلاسیک با متدهای روز دنیا و اجرای کامل با بهترین متریال.</p></div>
-            <div class="service-card"><i class="fa-solid fa-hard-hat"></i><h3>پیمانکاری صفر تا صد</h3><p>تحویل پروژه به صورت کلید به کلید شامل طراحی، اخذ پروانه، اجرا و دکوراسیون.</p></div>
-            <div class="service-card"><i class="fa-solid fa-paint-roller"></i><h3>بازسازی و نوسازی</h3><p>بازسازی ساختمان‌های فرسوده، تغییر کاربری و به‌روزرسانی تأسیسات.</p></div>
-            <div class="service-card"><i class="fa-solid fa-lightbulb"></i><h3>نورپردازی حرفه‌ای</h3><p>طراحی نور مخفی، نمای بیرونی و محوطه با جدیدترین تکنیک‌های روشنایی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-industry"></i><h3>سازه LSF</h3><p>اجرای سازه‌های سبک فولادی با سرعت بالا و هزینه مقرون به صرفه.</p></div>
-            <div class="service-card"><i class="fa-solid fa-building"></i><h3>نمای کامپوزیت</h3><p>پوشش مدرن ساختمان با ورق‌های آلومینیومی نسوز و ضد رطوبت.</p></div>
-            <div class="service-card"><i class="fa-solid fa-grip"></i><h3>سقف کاذب کناف</h3><p>اجرای سقف کاذب دکوراتیو با نورپردازی مخفی و عایق صوتی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-tree"></i><h3>محوطه‌سازی</h3><p>طراحی فضای سبز، آبنما، آلاچیق و سنگ‌فرش با متریال مقاوم.</p></div>
-            <div class="service-card"><i class="fa-solid fa-cubes"></i><h3>اسکلت بتنی و فلزی</h3><p>محاسبات سازه‌ای دقیق و اجرای اسکلت با نظارت مهندسین مجرب.</p></div>
-            <div class="service-card"><i class="fa-solid fa-pencil-ruler"></i><h3>طراحی معماری</h3><p>تهیه نقشه‌های فاز یک و دو، طراحی داخلی و سه بعدی‌سازی.</p></div>
-            <div class="service-card"><i class="fa-solid fa-border-all"></i><h3>نمای میکروسمنت</h3><p>پوشش مدرن و بدون درز برای کف، دیوار و نما با قابلیت اجرا روی سطوح مختلف.</p></div>
-            <div class="service-card"><i class="fa-solid fa-couch"></i><h3>کابینت و کمد دیواری</h3><p>طراحی و ساخت کابینت‌های آشپزخانه و کمد دیواری با یراق‌آلات درجه یک.</p></div>
-        </div>
-        <div style="text-align:center;">
-            <a href="contact.html" class="btn"><i class="fa-solid fa-phone"></i> درخواست مشاوره رایگان</a>
-        </div>
+  <!-- ========== PAGE FRAME ========== -->
+  <div class="page-frame" aria-hidden="true">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <div class="small-line">What We Do</div>
+    <div class="big-line" id="bigLine" aria-label="ZigguratServices"></div>
+  </div>
+
+  <!-- ========== FILTERS ========== -->
+  <div class="filters" id="filters">
+    <div class="filters-inner">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="design">طراحی</button>
+      <button class="filter-btn" data-filter="build">اجرا</button>
+      <button class="filter-btn" data-filter="renovation">بازسازی</button>
+      <button class="filter-btn" data-filter="finishing">نازک‌کاری</button>
+      <button class="filter-btn" data-filter="consulting">مشاوره</button>
     </div>
+  </div>
 
-    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+  <!-- ========== CONTENT ========== -->
+  <div class="content">
+    <div class="services" id="servicesGrid">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            const overlay = document.getElementById('mobileOverlay');
-            if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-                });
-                overlay.addEventListener('click', function () {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-                document.querySelectorAll('.nav-links a').forEach(function (link) {
-                    link.addEventListener('click', function () {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
+      <!-- 1. Design -->
+      <a class="service-card" data-cat="design" href="contact.html">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 21l3-1 11-11-2-2L4 18l-1 3z"/>
+            <path d="M14 5l2 2 3-3-2-2z"/>
+          </svg>
+        </div>
+        <div class="service-title">طراحی معماری</div>
+        <div class="service-desc">تدوین کانسپت، طراحی حجم و نما، نقشه‌های فاز یک و دو، به‌همراه هماهنگی کامل با سازه و تأسیسات.</div>
+      </a>
+
+      <!-- 2. Build -->
+      <a class="service-card" data-cat="build" href="contact.html">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 21V8l9-5 9 5v13"/>
+            <path d="M9 21v-6h6v6"/>
+          </svg>
+        </div>
+        <div class="service-title">اجرای صفر تا صد</div>
+        <div class="service-desc">پیمانکاری کامل پروژه از تخریب و گودبرداری تا تحویل کلید، با مدیریت یکپارچه و تیم‌های مجرب اجرایی.</div>
+      </a>
+
+      <!-- 3. Renovation -->
+      <a class="service-card" data-cat="renovation" href="contact.html">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+          </svg>
+        </div>
+        <div class="service-title">بازسازی و نوسازی</div>
+        <div class="service-desc">بازسازی ساختمان‌های فرسوده و نیمه‌فرسوده، تغییر کاربری، به‌روزرسانی تأسیسات و ارتقای کیفیت فضا.</div>
+      </a>
+
+      <!-- 4. Finishing -->
+      <a class="service-card" data-cat="finishing" href="contact.html">
+        <span class="service-num">04</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 3l2 2-9 9-2-2z"/>
+            <path d="M12 14l-4 4H4v-4l4-4"/>
+          </svg>
+        </div>
+        <div class="service-title">نازک‌کاری و نما</div>
+        <div class="service-desc">اجرای نمای کامپوزیت، سنگ، ترموود و میکروسمنت، به‌همراه سقف کاذب کناف، نورپردازی و دکوراسیون داخلی.</div>
+      </a>
+
+      <!-- 5. Consulting -->
+      <a class="service-card" data-cat="consulting" href="contact.html">
+        <span class="service-num">05</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="service-title">مشاوره و امکان‌سنجی</div>
+        <div class="service-desc">بررسی زمین، ضوابط شهرداری، برآورد دقیق هزینه، ارائه برنامهٔ زمانی و انتخاب بهترین رویکرد پروژه.</div>
+      </a>
+
+      <!-- 6. Supervision -->
+      <a class="service-card" data-cat="design" href="contact.html">
+        <span class="service-num">06</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+          </svg>
+        </div>
+        <div class="service-title">نظارت بر اجرا</div>
+        <div class="service-desc">حضور ناظر مقیم، کنترل کیفیت اجرا، بازدیدهای دوره‌ای و تطبیق مستمر کارگاه با نقشه‌های مصوب.</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM DOCK ========== -->
+  <nav class="dock" id="dock" aria-label="Main menu">
+    <div class="dock-line" aria-hidden="true"></div>
+    <div class="dock-inner">
+
+      <a class="dock-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 3l9 8.5"/>
+          <path d="M5 10.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9.5"/>
+        </svg>
+        <span class="lbl">خانه</span>
+      </a>
+
+      <a class="dock-btn" href="projects.html" aria-label="Projects">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V6l7-3v18"/>
+          <path d="M11 8h9v13"/>
+          <line x1="7" y1="9" x2="7" y2="9.01"/>
+          <line x1="7" y1="13" x2="7" y2="13.01"/>
+          <line x1="7" y1="17" x2="7" y2="17.01"/>
+          <line x1="15" y1="12" x2="15" y2="12.01"/>
+          <line x1="15" y1="16" x2="15" y2="16.01"/>
+        </svg>
+        <span class="lbl">پروژه‌ها</span>
+      </a>
+
+      <a class="dock-btn active" href="services.html" aria-label="Services">
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+        </svg>
+        <span class="lbl">خدمات</span>
+      </a>
+
+      <a class="dock-btn" href="videos.html" aria-label="Videos">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M10 8.5 16 12l-6 3.5z" fill="url(#iconGrad)" stroke="none"/>
+        </svg>
+        <span class="lbl">ویدیوها</span>
+      </a>
+
+      <a class="dock-btn" href="blog.html" aria-label="Blog">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 6.5C10.5 5 8 4.5 4 5v13c4-.5 6.5 0 8 1.5"/>
+          <path d="M12 6.5C13.5 5 16 4.5 20 5v13c-4-.5-6.5 0-8 1.5"/>
+          <line x1="12" y1="6.5" x2="12" y2="19.5"/>
+        </svg>
+        <span class="lbl">وبلاگ</span>
+      </a>
+
+      <a class="dock-btn" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+        </svg>
+        <span class="lbl">درباره</span>
+      </a>
+
+      <a class="dock-btn" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+        </svg>
+        <span class="lbl">تماس</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // Build title letter by letter
+      const bigLine = document.getElementById("bigLine");
+      const text = "ZigguratServices";
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const delay = (0.5 + i * 0.07).toFixed(2);
+        html += '<span class="letter" style="animation-delay:' + delay + 's">' + text[i] + '</span>';
+      }
+      bigLine.innerHTML = html;
+
+      // Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const serviceCards = document.querySelectorAll(".service-card");
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.dataset.filter;
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          serviceCards.forEach(function (card, idx) {
+            const match = (filter === "all" || card.dataset.cat === filter);
+            if (match) {
+              card.style.display = "";
+              card.style.animation = "none";
+              void card.offsetWidth;
+              card.style.animation = "cardIn 0.7s var(--ease) " + (idx * 0.05) + "s forwards";
+            } else {
+              card.style.display = "none";
             }
+          });
         });
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') {
-            body.classList.add('dark-mode');
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun');
-            localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light');
-        });
-    </script>
+      });
+
+      // Toggle dock on page tap
+      const body = document.body;
+      let ready = false;
+      setTimeout(function () { ready = true; }, 2500);
+
+      document.addEventListener("click", function (e) {
+        if (e.target.closest("a, button, .dock, .filters")) return;
+        if (e.target.closest(".content")) return;
+        if (!ready) return;
+        body.classList.toggle("dock-visible");
+      });
+
+      // Prevent double-tap & pinch zoom
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
 </body>
 </html>
