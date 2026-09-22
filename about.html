@@ -1,117 +1,913 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درباره ما | زیگورات سازان</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* همان استایل‌های پایه + ناوبری واکنش‌گرا (مشابه services.html) */
-        :root {
-            --bg-deep: #fcf9f5; --bg-card: #ffffff; --brick: #c44536; --brick-dark: #8b3a32;
-            --text-primary: #2c241b; --text-secondary: #4a4038; --text-muted: #7a6f65;
-            --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.08);
-            --navbar-bg: rgba(255,255,255,0.95); --footer-bg: #f7f3ee;
-        }
-        /* حالت تاریک */
-body.dark-mode {
-    --bg-deep: #1c1a18;
-    --bg-card: #2a2521;
-    --brick: #d6685a;
-    --brick-dark: #a34b3f;
-    --text-primary: #ece6df;
-    --text-secondary: #c9bfb3;
-    --text-muted: #9d9184;
-    --border-subtle: rgba(214, 104, 90, 0.3);
-    --border-brick: rgba(214, 104, 90, 0.4);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
-    --navbar-bg: rgba(28, 26, 24, 0.95);
-    --footer-bg: #1c1a18;
-}
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); line-height:1.7; transition:0.3s; }
-        .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle); box-shadow:0 4px 30px rgba(0,0,0,0.08); }
-        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
-        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; font-weight:900; }
-        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
-        .nav-links { display:flex; list-style:none; gap:1.8rem; align-items:center; transition:0.4s ease; }
-        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; font-size:0.95rem; transition:0.25s; }
-        .nav-links a:hover { color:var(--brick); } .nav-links a.active-link { color:var(--brick); font-weight:700; }
-        .nav-controls { display:flex; align-items:center; gap:1rem; }
-        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-        .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:6px; padding:8px; }
-        .hamburger span { width:28px; height:2.5px; background:var(--text-primary); border-radius:4px; transition:0.25s; }
-        .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); } .hamburger.active span:nth-child(2) { opacity:0; } .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
-        @media (max-width:900px) {
-            .hamburger { display:flex; }
-            .nav-links { position:fixed; top:0; right:-100%; width:75%; max-width:380px; height:100vh; background:var(--navbar-bg); backdrop-filter:blur(25px); flex-direction:column; justify-content:center; gap:2.5rem; transition:0.4s; border-left:1px solid var(--border-subtle); box-shadow:-10px 0 40px rgba(0,0,0,0.2); }
-            .nav-links.active { right:0; }
-            .mobile-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; opacity:0; pointer-events:none; transition:0.4s; }
-            .mobile-overlay.active { opacity:1; pointer-events:all; }
-        }
-        .container { max-width:1000px; margin:0 auto; padding:6rem 2rem 2rem; }
-        .section-header { text-align:center; margin-bottom:3rem; } .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem auto; border-radius:3px; }
-        .about-text { line-height:2.2; color:var(--text-secondary); text-align:justify; margin-bottom:3rem; background:var(--bg-card); padding:2rem; border-radius:16px; border:1px solid var(--border-subtle); }
-        .ceo-card { text-align:center; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:16px; padding:2.5rem; }
-        .ceo-card i { font-size:3rem; color:var(--brick); }
-        .ceo-card h3 { margin:1rem 0 0.5rem; }
-        .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem 2rem; margin-top:1.5rem; color:var(--text-secondary); }
-        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-muted); margin-top:4rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>About | Zigguratsazan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --bg: #000000;
+    --orange: #f5a623;
+    --orange-l: #ffc761;
+    --orange-d: #e08b1f;
+    --grad-txt: linear-gradient(180deg, #ffc761 0%, #f5a623 100%);
+    --grad-line: linear-gradient(180deg, #ffc761 0%, #f5a623 50%, #e08b1f 100%);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--orange);
+    position: fixed;
+    inset: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ==========================================
+     PAGE FRAME
+     ========================================== */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .page-frame .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange-l);
+    opacity: 0.85;
+    animation: cornerPulse 4s ease-in-out infinite;
+  }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.5; border-color: #ffc761; }
+    50% { opacity: 1; border-color: #f5a623; }
+  }
+  .page-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .page-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .page-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .page-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  /* ==========================================
+     HEADER
+     ========================================== */
+  .header {
+    position: absolute;
+    top: max(24px, 3.2vh);
+    left: 0;
+    right: 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .small-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 6px;
+    margin-left: 0.5em;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRTL 1.4s var(--ease) 0.3s forwards;
+  }
+
+  @keyframes slideRTL {
+    0% { opacity: 0; transform: translateX(60px); letter-spacing: 0.9em; }
+    100% { opacity: 1; transform: translateX(0); letter-spacing: 0.5em; }
+  }
+
+  .big-line {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .big-line .letter {
+    display: inline-block;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: letterLTR 0.8s var(--ease) forwards;
+  }
+
+  @keyframes letterLTR {
+    0% { opacity: 0; transform: translateX(-30px); }
+    70% { opacity: 1; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ==========================================
+     FILTER BAR
+     ========================================== */
+  .filters {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 88px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0 14px;
+    mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filters::-webkit-scrollbar { display: none; }
+
+  .filters-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 32px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 2px;
+    color: #6f6350;
+    cursor: pointer;
+    transition: color 0.4s var(--ease);
+    letter-spacing: 0.3px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--grad-line);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .filter-btn:hover,
+  .filter-btn:active { color: #d8bd8a; }
+
+  .filter-btn.active {
+    color: var(--orange-l);
+    font-weight: 500;
+  }
+  .filter-btn.active::after { transform: scaleX(1); }
+
+  /* ==========================================
+     CONTENT
+     ========================================== */
+  .content {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 140px);
+    left: 0;
+    right: 0;
+    bottom: calc(20vh + var(--safe-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 24px 40px;
+    z-index: 2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .content::-webkit-scrollbar { display: none; }
+
+  /* ==========================================
+     ABOUT GRID
+     ========================================== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Card */
+  .about-card {
+    position: relative;
+    background: #0a0806;
+    border: 1.5px solid rgba(245, 166, 35, 0.28);
+    border-radius: 10px;
+    padding: 20px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--ease);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardIn 0.9s var(--ease) forwards;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .about-card:nth-child(1) { animation-delay: 0.4s; }
+  .about-card:nth-child(2) { animation-delay: 0.55s; }
+  .about-card:nth-child(3) { animation-delay: 0.7s; }
+  .about-card:nth-child(4) { animation-delay: 0.85s; }
+  .about-card:nth-child(5) { animation-delay: 1.0s; }
+  .about-card:nth-child(6) { animation-delay: 1.15s; }
+
+  .about-card:hover,
+  .about-card:active {
+    border-color: var(--orange-l);
+    box-shadow: 0 0 24px rgba(245, 166, 35, 0.25);
+    transform: translateY(-3px);
+  }
+
+  /* Icon */
+  .about-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(245, 166, 35, 0.35);
+    border-radius: 10px;
+    background: rgba(245, 166, 35, 0.05);
+    transition: all 0.5s var(--ease);
+    flex-shrink: 0;
+  }
+
+  .about-card:hover .about-icon,
+  .about-card:active .about-icon {
+    border-color: var(--orange-l);
+    background: rgba(245, 166, 35, 0.12);
+    box-shadow: 0 0 16px rgba(245, 166, 35, 0.3);
+  }
+
+  .about-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.5));
+  }
+
+  /* Number badge */
+  .about-num {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #6f6350;
+    letter-spacing: 1.5px;
+  }
+
+  .about-label {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #7a6f5c;
+    letter-spacing: 0.3px;
+  }
+
+  .about-title {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f0e6d2;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+  }
+
+  .about-text {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #8a7a5f;
+    line-height: 1.8;
+    letter-spacing: 0.1px;
+  }
+
+  /* CEO special card */
+  .about-card.ceo {
+    padding: 24px 20px;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #0a0806 0%, #100d08 100%);
+  }
+
+  .ceo-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid rgba(245, 166, 35, 0.5);
+    background: rgba(245, 166, 35, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    transition: all 0.5s var(--ease);
+    position: relative;
+  }
+
+  .ceo-avatar::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 166, 35, 0.2);
+    animation: avatarPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes avatarPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.06); opacity: 0.9; }
+  }
+
+  .ceo-avatar svg {
+    width: 44px;
+    height: 44px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.6));
+  }
+
+  .ceo-name {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-top: 6px;
+  }
+
+  .ceo-role {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: #7a6f5c;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  /* Skills chips */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .chip {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 400;
+    color: #b8a580;
+    background: rgba(245, 166, 35, 0.06);
+    border: 1px solid rgba(245, 166, 35, 0.22);
+    padding: 3px 9px;
+    border-radius: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  /* Stats row inside "company" card */
+  .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(245, 166, 35, 0.15);
+  }
+
+  .mini-stat {
+    text-align: center;
+  }
+
+  .mini-stat b {
+    display: block;
+    font-family: 'Inter', 'Vazirmatn', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 2px;
+  }
+
+  .mini-stat span {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 400;
+    color: #6f6350;
+    letter-spacing: 0.3px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #7a6f5c;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin: 24px 4px 12px;
+    text-align: left;
+  }
+  .section-label:first-child { margin-top: 4px; }
+
+  /* ==========================================
+     BOTTOM DOCK
+     ========================================== */
+  .dock {
+    position: absolute;
+    bottom: calc(2vh + var(--safe-bottom));
+    left: 6vw;
+    right: 6vw;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    z-index: 10;
+  }
+
+  body.dock-visible .dock {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dock-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 2px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px) scale(0.7);
+  }
+
+  body.dock-visible .dock-btn {
+    animation: btnIn 0.7s var(--ease) forwards;
+  }
+  body.dock-visible .dock-btn:nth-child(1) { animation-delay: 0.10s; }
+  body.dock-visible .dock-btn:nth-child(2) { animation-delay: 0.20s; }
+  body.dock-visible .dock-btn:nth-child(3) { animation-delay: 0.30s; }
+  body.dock-visible .dock-btn:nth-child(4) { animation-delay: 0.40s; }
+  body.dock-visible .dock-btn:nth-child(5) { animation-delay: 0.50s; }
+  body.dock-visible .dock-btn:nth-child(6) { animation-delay: 0.60s; }
+  body.dock-visible .dock-btn:nth-child(7) { animation-delay: 0.70s; }
+
+  @keyframes btnIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.55));
+    transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+  }
+
+  .dock-btn:active svg {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.9));
+  }
+
+  .dock-btn.active svg {
+    filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.85));
+  }
+
+  .dock-btn .lbl {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: #8a7a5f;
+    transition: color 0.4s var(--ease);
+    white-space: nowrap;
+  }
+
+  .dock-btn.active .lbl,
+  .dock-btn:active .lbl { color: var(--orange-l); }
+
+  .dock-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--orange-l) 0 4px, transparent 4px 8px);
+    background-size: 8px 100%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease) 0.3s;
+  }
+
+  body.dock-visible .dock-line { opacity: 0.85; }
+
+  /* ==========================================
+     MOBILE TUNING
+     ========================================== */
+  @media (max-width: 380px) {
+    .small-line { font-size: 10px; }
+    .big-line { font-size: 20px; }
+    .filter-btn { font-size: 0.8rem; }
+    .dock-btn svg { width: 22px; height: 22px; }
+    .dock-btn .lbl { font-size: 0.54rem; }
+    .about-title { font-size: 0.96rem; }
+    .about-text { font-size: 0.8rem; }
+    .ceo-avatar { width: 78px; height: 78px; }
+    .ceo-avatar svg { width: 38px; height: 38px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .about-card { opacity: 1; transform: none; }
+    .big-line .letter { opacity: 1; transform: none; }
+    .small-line { opacity: 1; transform: none; }
+    .dock-btn { opacity: 1; }
+    .dock { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li><li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li><li><a href="blog.html">وبلاگ</a></li><li><a href="about.html" class="active-link">درباره ما</a></li><li><a href="contact.html">تماس با ما</a></li>
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
-            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="section-header"><h1 class="section-title">شرکت معماری زیگورات سازان</h1><div class="section-line"></div></div>
-        <div class="about-text">
-            <p>شرکت زیگورات سازان در سال ۱۳۸۸ فعالیت خود را در زمینه طراحی و اجرای ساختمان با انواع متریال‌ها شروع نمود. این شرکت با بهره‌گیری از تیمی مجرب و متخصص، به سرعت توانست جایگاه خود را در صنعت ساختمان‌سازی شمال کشور تثبیت کند.</p>
-            <p style="margin-top:1.5rem;">امروز زیگورات سازان با بیش از ۵۰ نیروی متخصص، ۴ تیم اجرایی فعال و دفتر مرکزی در نوشهر، یکی از معتبرترین شرکت‌های ساختمانی مازندران محسوب می‌شود. این شرکت تاکنون در بیش از ۱۵ شهر ایران پروژه اجرا کرده و رضایت ۱۴۰+ کارفرما را جلب نموده است.</p>
-            <p style="margin-top:1.5rem;">ما در زیگورات سازان به کیفیت، زمان‌بندی دقیق و شفافیت در هزینه‌ها متعهد هستیم و افتخار می‌کنیم که در هر پروژه، نام زیگورات با اعتماد و اطمینان همراه بوده است.</p>
-        </div>
-        <div class="ceo-card">
-            <i class="fa-solid fa-user-tie"></i>
-            <h3>مهندس عدنان رستمی</h3>
-            <p style="color:var(--text-secondary);">مدیر عامل و رئیس هیئت مدیره</p>
-            <div class="skills">
-                <span>✔ ۱۲ سال سابقه اجرایی</span>
-                <span>✔ مدرس دانشگاه</span>
-                <span>✔ کارشناسی ارشد معماری</span>
-                <span>✔ مجری ۱۳۰+ پروژه در کشور</span>
-                <span>✔ مدیر پروژه‌های بیمه آسیا</span>
-                <span>✔ نماینده ورق کامپوزیت در شمال</span>
-                <span>✔ نماینده چوب ترموود در شمال</span>
-                <span>✔ ۴ مقاله بین‌المللی</span>
-            </div>
-        </div>
+  <!-- Hidden SVG defs -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;">
+    <defs>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ========== PAGE FRAME ========== -->
+  <div class="page-frame" aria-hidden="true">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <div class="small-line">Who We Are</div>
+    <div class="big-line" id="bigLine" aria-label="ZigguratAbout"></div>
+  </div>
+
+  <!-- ========== FILTERS ========== -->
+  <div class="filters" id="filters">
+    <div class="filters-inner">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="company">شرکت</button>
+      <button class="filter-btn" data-filter="ceo">مدیر</button>
+      <button class="filter-btn" data-filter="values">ارزش‌ها</button>
+      <button class="filter-btn" data-filter="awards">افتخارات</button>
     </div>
+  </div>
 
-    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+  <!-- ========== CONTENT ========== -->
+  <div class="content">
+    <div class="about-grid" id="aboutGrid">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            const overlay = document.getElementById('mobileOverlay');
-            if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : ''; });
-                overlay.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
-                document.querySelectorAll('.nav-links a').forEach(function (link) { link.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }); });
+      <!-- 1. Company -->
+      <div class="about-card" data-cat="company">
+        <span class="about-num">01</span>
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 21V8l9-5 9 5v13"/>
+            <path d="M9 21v-6h6v6"/>
+          </svg>
+        </div>
+        <div class="about-label">درباره شرکت</div>
+        <div class="about-title">زیگورات سازان از سال ۱۳۸۸</div>
+        <div class="about-text">
+          شرکت زیگورات سازان فعالیت خود را در زمینه طراحی و اجرای ساختمان با انواع متریال‌ها آغاز نمود و به‌مرور دامنه فعالیت خود را گسترش داد. با آموزش اکیپ‌های اجرایی و اخذ گواهینامه‌های متعدد، به یکی از بزرگترین و بروزترین شرکت‌های مجری ساختمانی در شمال کشور تبدیل شده است.
+        </div>
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <b>۵۰+</b>
+            <span>نیروی متخصص</span>
+          </div>
+          <div class="mini-stat">
+            <b>۹۰+</b>
+            <span>پروژه اجرایی</span>
+          </div>
+          <div class="mini-stat">
+            <b>۱۵</b>
+            <span>شهر مختلف</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. CEO -->
+      <div class="about-card ceo" data-cat="ceo">
+        <div class="ceo-avatar">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="3.5"/>
+            <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+          </svg>
+        </div>
+        <div class="ceo-name">مهندس عدنان رستمی</div>
+        <div class="ceo-role">مدیرعامل و رئیس هیئت مدیره</div>
+        <div class="chips">
+          <span class="chip">۱۲ سال سابقه اجرایی</span>
+          <span class="chip">مدرس دانشگاه</span>
+          <span class="chip">کارشناسی ارشد معماری</span>
+          <span class="chip">مجری ۱۳۰+ پروژه</span>
+          <span class="chip">نماینده ورق کامپوزیت در شمال</span>
+          <span class="chip">نماینده چوب ترموود در شمال</span>
+          <span class="chip">۴ مقاله بین‌المللی</span>
+        </div>
+      </div>
+
+      <!-- 3. Values -->
+      <div class="about-card" data-cat="values">
+        <span class="about-num">02</span>
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2 3 7v6c0 5 3.5 8.5 9 10 5.5-1.5 9-5 9-10V7z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="about-label">ارزش‌های ما</div>
+        <div class="about-title">تعهد، کیفیت، شفافیت</div>
+        <div class="about-text">
+          در زیگورات سازان، هر پروژه یک تعهد است. ما به کیفیت اجرا، رعایت زمان‌بندی و شفافیت کامل در هزینه‌ها پایبندیم و معتقدیم اعتماد کارفرما، بزرگترین سرمایه‌ی ماست.
+        </div>
+      </div>
+
+      <!-- 4. Mission -->
+      <div class="about-card" data-cat="values">
+        <span class="about-num">03</span>
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="1.5" fill="url(#iconGrad)" stroke="none"/>
+          </svg>
+        </div>
+        <div class="about-label">مأموریت ما</div>
+        <div class="about-title">ساختن فضایی برای زندگی بهتر</div>
+        <div class="about-text">
+          هدف ما طراحی و اجرای فضاهایی است که استحکام، زیبایی و آرامش را در یک روایت منسجم کنار هم بنشانند؛ فضاهایی که سال‌ها با زندگی کارفرما هم‌آهنگ بمانند.
+        </div>
+      </div>
+
+      <!-- 5. Awards -->
+      <div class="about-card" data-cat="awards">
+        <span class="about-num">04</span>
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="9" r="5"/>
+            <path d="M9 13.5 8 22l4-2 4 2-1-8.5"/>
+          </svg>
+        </div>
+        <div class="about-label">افتخارات</div>
+        <div class="about-title">کارنامه‌ای پر از اعتماد</div>
+        <div class="about-text">
+          در طول بیش از ۱۵ سال فعالیت، زیگورات سازان موفق به دریافت گواهینامه‌های متعدد اجرایی، تقدیرنامه‌های انجمن صنفی و رضایت‌نامه‌های متعدد از کارفرمایان در شهرهای مختلف شمال کشور شده است.
+        </div>
+      </div>
+
+      <!-- 6. Team -->
+      <div class="about-card" data-cat="company">
+        <span class="about-num">05</span>
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="8" r="3"/>
+            <path d="M2 20c1-3.5 3.5-5.3 7-5.3s6 1.8 7 5.3"/>
+            <circle cx="17" cy="9" r="2.4"/>
+            <path d="M15 14.8c2.4.2 4.3 1.7 5 4.2"/>
+          </svg>
+        </div>
+        <div class="about-label">تیم ما</div>
+        <div class="about-title">۵۰+ متخصص در دو بخش طراحی و اجرا</div>
+        <div class="about-text">
+          تیم زیگورات سازان از مهندسان معمار، عمران، طراحان داخلی و اکیپ‌های اجرایی مجرب تشکیل شده که در دو بخش طراحی و اجرا در کنار کارفرمایان هستند.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM DOCK ========== -->
+  <nav class="dock" id="dock" aria-label="Main menu">
+    <div class="dock-line" aria-hidden="true"></div>
+    <div class="dock-inner">
+
+      <a class="dock-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 3l9 8.5"/>
+          <path d="M5 10.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9.5"/>
+        </svg>
+        <span class="lbl">خانه</span>
+      </a>
+
+      <a class="dock-btn" href="projects.html" aria-label="Projects">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V6l7-3v18"/>
+          <path d="M11 8h9v13"/>
+          <line x1="7" y1="9" x2="7" y2="9.01"/>
+          <line x1="7" y1="13" x2="7" y2="13.01"/>
+          <line x1="7" y1="17" x2="7" y2="17.01"/>
+          <line x1="15" y1="12" x2="15" y2="12.01"/>
+          <line x1="15" y1="16" x2="15" y2="16.01"/>
+        </svg>
+        <span class="lbl">پروژه‌ها</span>
+      </a>
+
+      <a class="dock-btn" href="services.html" aria-label="Services">
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+        </svg>
+        <span class="lbl">خدمات</span>
+      </a>
+
+      <a class="dock-btn" href="videos.html" aria-label="Videos">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M10 8.5 16 12l-6 3.5z" fill="url(#iconGrad)" stroke="none"/>
+        </svg>
+        <span class="lbl">ویدیوها</span>
+      </a>
+
+      <a class="dock-btn" href="blog.html" aria-label="Blog">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 6.5C10.5 5 8 4.5 4 5v13c4-.5 6.5 0 8 1.5"/>
+          <path d="M12 6.5C13.5 5 16 4.5 20 5v13c-4-.5-6.5 0-8 1.5"/>
+          <line x1="12" y1="6.5" x2="12" y2="19.5"/>
+        </svg>
+        <span class="lbl">وبلاگ</span>
+      </a>
+
+      <a class="dock-btn active" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+        </svg>
+        <span class="lbl">درباره</span>
+      </a>
+
+      <a class="dock-btn" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+        </svg>
+        <span class="lbl">تماس</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // Build title letter by letter
+      const bigLine = document.getElementById("bigLine");
+      const text = "ZigguratAbout";
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const delay = (0.5 + i * 0.07).toFixed(2);
+        html += '<span class="letter" style="animation-delay:' + delay + 's">' + text[i] + '</span>';
+      }
+      bigLine.innerHTML = html;
+
+      // Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const aboutCards = document.querySelectorAll(".about-card");
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.dataset.filter;
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          aboutCards.forEach(function (card, idx) {
+            const match = (filter === "all" || card.dataset.cat === filter);
+            if (match) {
+              card.style.display = "";
+              card.style.animation = "none";
+              void card.offsetWidth;
+              card.style.animation = "cardIn 0.7s var(--ease) " + (idx * 0.05) + "s forwards";
+            } else {
+              card.style.display = "none";
             }
+          });
         });
-        const themeToggle = document.getElementById('themeToggle'); const body = document.body; const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') { body.classList.add('dark-mode'); icon.classList.replace('fa-sun','fa-moon'); }
-        themeToggle.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun'); localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light'); });
-    </script>
+      });
+
+      // Toggle dock on page tap
+      const body = document.body;
+      let ready = false;
+      setTimeout(function () { ready = true; }, 2500);
+
+      document.addEventListener("click", function (e) {
+        if (e.target.closest("a, button, .dock, .filters")) return;
+        if (e.target.closest(".content")) return;
+        if (!ready) return;
+        body.classList.toggle("dock-visible");
+      });
+
+      // Prevent double-tap & pinch zoom
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
 </body>
 </html>
