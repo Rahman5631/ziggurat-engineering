@@ -1,125 +1,827 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تماس با ما | زیگورات سازان</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        :root {
-            --bg-deep: #fcf9f5; --bg-card: #ffffff; --brick: #c44536; --brick-dark: #8b3a32;
-            --text-primary: #2c241b; --text-secondary: #4a4038; --text-muted: #7a6f65;
-            --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.08);
-            --navbar-bg: rgba(255,255,255,0.95); --footer-bg: #f7f3ee;
-        }
-        /* حالت تاریک */
-body.dark-mode {
-    --bg-deep: #1c1a18;
-    --bg-card: #2a2521;
-    --brick: #d6685a;
-    --brick-dark: #a34b3f;
-    --text-primary: #ece6df;
-    --text-secondary: #c9bfb3;
-    --text-muted: #9d9184;
-    --border-subtle: rgba(214, 104, 90, 0.3);
-    --border-brick: rgba(214, 104, 90, 0.4);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
-    --navbar-bg: rgba(28, 26, 24, 0.95);
-    --footer-bg: #1c1a18;
-}
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); line-height:1.7; transition:0.3s; }
-        .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle); box-shadow:0 4px 30px rgba(0,0,0,0.08); }
-        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
-        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; }
-        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
-        .nav-links { display:flex; list-style:none; gap:1.8rem; align-items:center; transition:0.4s ease; }
-        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; font-size:0.95rem; transition:0.25s; }
-        .nav-links a:hover { color:var(--brick); } .nav-links a.active-link { color:var(--brick); font-weight:700; }
-        .nav-controls { display:flex; align-items:center; gap:1rem; }
-        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-        .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:6px; padding:8px; }
-        .hamburger span { width:28px; height:2.5px; background:var(--text-primary); border-radius:4px; transition:0.25s; }
-        .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); } .hamburger.active span:nth-child(2) { opacity:0; } .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
-        @media (max-width:900px) {
-            .hamburger { display:flex; }
-            .nav-links { position:fixed; top:0; right:-100%; width:75%; max-width:380px; height:100vh; background:var(--navbar-bg); backdrop-filter:blur(25px); flex-direction:column; justify-content:center; gap:2.5rem; transition:0.4s; border-left:1px solid var(--border-subtle); box-shadow:-10px 0 40px rgba(0,0,0,0.2); }
-            .nav-links.active { right:0; }
-            .mobile-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; opacity:0; pointer-events:none; transition:0.4s; }
-            .mobile-overlay.active { opacity:1; pointer-events:all; }
-        }
-        .container { max-width:1000px; margin:0 auto; padding:6rem 2rem 2rem; display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
-        @media (max-width:768px) { .container { grid-template-columns:1fr; } }
-        .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem 0 2rem; border-radius:3px; }
-        .contact-form { display:flex; flex-direction:column; gap:1.2rem; }
-        .contact-form input, .contact-form textarea { padding:0.9rem 1.2rem; border-radius:12px; border:1px solid var(--border-subtle); background:var(--bg-card); color:var(--text-primary); font-family:inherit; outline:none; }
-        .btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.85rem 2rem; border-radius:8px; font-weight:700; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); color:#fff; border:none; cursor:pointer; transition:0.3s; align-self:flex-start; }
-        .btn:hover { transform:translateY(-3px); box-shadow:0 12px 35px rgba(196,69,54,0.5); }
-        .info-box { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:16px; padding:2rem; }
-        .info-box p { margin-bottom:1rem; color:var(--text-secondary); }
-        .info-box i { color:var(--brick); margin-left:0.5rem; width:20px; }
-        #mapid { height:300px; border-radius:12px; margin-top:1.5rem; border:1px solid var(--border-subtle); }
-        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-muted); margin-top:4rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>Contact | Zigguratsazan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --bg: #000000;
+    --orange: #f5a623;
+    --orange-l: #ffc761;
+    --orange-d: #e08b1f;
+    --grad-txt: linear-gradient(180deg, #ffc761 0%, #f5a623 100%);
+    --grad-line: linear-gradient(180deg, #ffc761 0%, #f5a623 50%, #e08b1f 100%);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--orange);
+    position: fixed;
+    inset: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ==========================================
+     PAGE FRAME
+     ========================================== */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .page-frame .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange-l);
+    opacity: 0.85;
+    animation: cornerPulse 4s ease-in-out infinite;
+  }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.5; border-color: #ffc761; }
+    50% { opacity: 1; border-color: #f5a623; }
+  }
+  .page-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .page-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .page-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .page-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  /* ==========================================
+     HEADER
+     ========================================== */
+  .header {
+    position: absolute;
+    top: max(24px, 3.2vh);
+    left: 0;
+    right: 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .small-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 6px;
+    margin-left: 0.5em;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRTL 1.4s var(--ease) 0.3s forwards;
+  }
+
+  @keyframes slideRTL {
+    0% { opacity: 0; transform: translateX(60px); letter-spacing: 0.9em; }
+    100% { opacity: 1; transform: translateX(0); letter-spacing: 0.5em; }
+  }
+
+  .big-line {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .big-line .letter {
+    display: inline-block;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: letterLTR 0.8s var(--ease) forwards;
+  }
+
+  @keyframes letterLTR {
+    0% { opacity: 0; transform: translateX(-30px); }
+    70% { opacity: 1; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ==========================================
+     FILTER BAR — horizontal scroll
+     ========================================== */
+  .filters {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 88px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0 14px;
+    mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 32px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 2px;
+    color: #6f6350;
+    cursor: pointer;
+    transition: color 0.4s var(--ease);
+    letter-spacing: 0.3px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--grad-line);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .filter-btn:hover,
+  .filter-btn:active {
+    color: #d8bd8a;
+  }
+
+  .filter-btn.active {
+    color: var(--orange-l);
+    font-weight: 500;
+  }
+
+  .filter-btn.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ==========================================
+     CONTENT
+     ========================================== */
+  .content {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 140px);
+    left: 0;
+    right: 0;
+    bottom: calc(20vh + var(--safe-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 24px 40px;
+    z-index: 2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ==========================================
+     CONTACT GRID
+     ========================================== */
+  .contacts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .contact-card {
+    position: relative;
+    background: #0a0806;
+    border: 1.5px solid rgba(245, 166, 35, 0.28);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--ease);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardIn 0.9s var(--ease) forwards;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .contact-card:nth-child(1) { animation-delay: 0.4s; }
+  .contact-card:nth-child(2) { animation-delay: 0.55s; }
+  .contact-card:nth-child(3) { animation-delay: 0.7s; }
+  .contact-card:nth-child(4) { animation-delay: 0.85s; }
+  .contact-card:nth-child(5) { animation-delay: 1.0s; }
+
+  .contact-card:hover,
+  .contact-card:active {
+    border-color: var(--orange-l);
+    box-shadow: 0 0 24px rgba(245, 166, 35, 0.25);
+    transform: translateY(-3px);
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(245, 166, 35, 0.35);
+    border-radius: 10px;
+    background: rgba(245, 166, 35, 0.05);
+    transition: all 0.5s var(--ease);
+    flex-shrink: 0;
+  }
+
+  .contact-card:hover .contact-icon,
+  .contact-card:active .contact-icon {
+    border-color: var(--orange-l);
+    background: rgba(245, 166, 35, 0.12);
+    box-shadow: 0 0 16px rgba(245, 166, 35, 0.3);
+  }
+
+  .contact-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.5));
+  }
+
+  .contact-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .contact-label {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #7a6f5c;
+    letter-spacing: 0.3px;
+    margin-bottom: 3px;
+  }
+
+  .contact-value {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f0e6d2;
+    letter-spacing: 0.2px;
+    direction: ltr;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .contact-value.rtl {
+    direction: rtl;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .contact-arrow {
+    color: #6f6350;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: all 0.4s var(--ease);
+  }
+
+  .contact-card:hover .contact-arrow,
+  .contact-card:active .contact-arrow {
+    color: var(--orange-l);
+    transform: translateX(-4px);
+  }
+
+  /* Section heading inside content */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #7a6f5c;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin: 24px 4px 12px;
+    text-align: left;
+  }
+
+  .section-label:first-child {
+    margin-top: 4px;
+  }
+
+  /* ==========================================
+     BOTTOM DOCK — hidden by default
+     ========================================== */
+  .dock {
+    position: absolute;
+    bottom: calc(2vh + var(--safe-bottom));
+    left: 6vw;
+    right: 6vw;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    z-index: 10;
+  }
+
+  body.dock-visible .dock {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dock-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 2px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px) scale(0.7);
+  }
+
+  body.dock-visible .dock-btn {
+    animation: btnIn 0.7s var(--ease) forwards;
+  }
+  body.dock-visible .dock-btn:nth-child(1) { animation-delay: 0.10s; }
+  body.dock-visible .dock-btn:nth-child(2) { animation-delay: 0.20s; }
+  body.dock-visible .dock-btn:nth-child(3) { animation-delay: 0.30s; }
+  body.dock-visible .dock-btn:nth-child(4) { animation-delay: 0.40s; }
+  body.dock-visible .dock-btn:nth-child(5) { animation-delay: 0.50s; }
+  body.dock-visible .dock-btn:nth-child(6) { animation-delay: 0.60s; }
+  body.dock-visible .dock-btn:nth-child(7) { animation-delay: 0.70s; }
+
+  @keyframes btnIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.55));
+    transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+  }
+
+  .dock-btn:active svg {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.9));
+  }
+
+  .dock-btn.active svg {
+    filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.85));
+  }
+
+  .dock-btn .lbl {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: #8a7a5f;
+    transition: color 0.4s var(--ease);
+    white-space: nowrap;
+  }
+
+  .dock-btn.active .lbl,
+  .dock-btn:active .lbl {
+    color: var(--orange-l);
+  }
+
+  .dock-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg,
+      var(--orange-l) 0 4px,
+      transparent 4px 8px);
+    background-size: 8px 100%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease) 0.3s;
+  }
+
+  body.dock-visible .dock-line {
+    opacity: 0.85;
+  }
+
+  /* ==========================================
+     MOBILE TUNING
+     ========================================== */
+  @media (max-width: 380px) {
+    .small-line { font-size: 10px; }
+    .big-line { font-size: 20px; }
+    .filter-btn { font-size: 0.8rem; }
+    .dock-btn svg { width: 22px; height: 22px; }
+    .dock-btn .lbl { font-size: 0.54rem; }
+    .contact-value { font-size: 0.88rem; }
+    .contact-icon { width: 40px; height: 40px; }
+    .contact-icon svg { width: 20px; height: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .contact-card { opacity: 1; transform: none; }
+    .big-line .letter { opacity: 1; transform: none; }
+    .small-line { opacity: 1; transform: none; }
+    .dock-btn { opacity: 1; }
+    .dock { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li><li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li><li><a href="blog.html">وبلاگ</a></li><li><a href="about.html">درباره ما</a></li><li><a href="contact.html" class="active-link">تماس با ما</a></li>
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
-            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div>
-            <h1 class="section-title">با ما در ارتباط باشید</h1>
-            <div class="section-line"></div>
-            <form class="contact-form">
-                <input type="text" placeholder="نام کامل" required>
-                <input type="email" placeholder="ایمیل" required>
-                <input type="text" placeholder="موضوع">
-                <textarea rows="5" placeholder="پیام شما..."></textarea>
-                <button type="submit" class="btn">ارسال پیام</button>
-            </form>
+  <!-- Hidden SVG defs -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;">
+    <defs>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ========== PAGE FRAME ========== -->
+  <div class="page-frame" aria-hidden="true">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <div class="small-line">Get in touch</div>
+    <div class="big-line" id="bigLine" aria-label="ZigguratContact"></div>
+  </div>
+
+  <!-- ========== FILTERS ========== -->
+  <div class="filters" id="filters">
+    <div class="filters-inner">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="call">تماس</button>
+      <button class="filter-btn" data-filter="message">پیام</button>
+      <button class="filter-btn" data-filter="social">شبکه‌ها</button>
+      <button class="filter-btn" data-filter="location">آدرس</button>
+    </div>
+  </div>
+
+  <!-- ========== CONTENT ========== -->
+  <div class="content">
+
+    <div class="section-label">Direct Contact</div>
+    <div class="contacts" id="contactsGrid">
+
+      <!-- Phone 1 -->
+      <a class="contact-card" data-cat="call" href="tel:09119493545">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
         </div>
-        <div class="info-box">
-            <p><i class="fa-solid fa-phone"></i> ۰۹۱۱۹۴۹۳۵۴۵</p>
-            <p><i class="fa-solid fa-phone"></i> ۰۹۳۳۴۱۰۴۸۸۲</p>
-            <p><i class="fa-solid fa-envelope"></i> info@ziggurat1.com</p>
-            <p><i class="fa-solid fa-location-dot"></i> نوشهر، ۸ کیلومتری سیسنگان به رویان، نبش ورودی علویکلا</p>
-            <p><i class="fa-solid fa-clock"></i> شنبه تا پنجشنبه: ۸ الی ۱۸</p>
-            <div id="mapid"></div>
+        <div class="contact-body">
+          <div class="contact-label">تماس مستقیم</div>
+          <div class="contact-value">0911 949 3545</div>
         </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Phone 2 -->
+      <a class="contact-card" data-cat="call" href="tel:09334104882">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.9.34 1.78.63 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.2a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.63A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">تماس دوم</div>
+          <div class="contact-value">0933 410 4882</div>
+        </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- WhatsApp -->
+      <a class="contact-card" data-cat="message" href="https://wa.me/989119493545" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.6-4.9A8.5 8.5 0 1 1 21 11.5z"/>
+            <path d="M8.5 9.5c0 3 2.5 5.5 5.5 5.5"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">واتساپ</div>
+          <div class="contact-value">Chat on WhatsApp</div>
+        </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Instagram -->
+      <a class="contact-card" data-cat="social" href="https://www.instagram.com/zigguratsazan.group" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.2" cy="6.8" r="0.9" fill="url(#iconGrad)" stroke="none"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">اینستاگرام</div>
+          <div class="contact-value">@zigguratsazan.group</div>
+        </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Email -->
+      <a class="contact-card" data-cat="message" href="mailto:info@ziggurat1.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="m4 7 8 6 8-6"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">ایمیل</div>
+          <div class="contact-value">info@ziggurat1.com</div>
+        </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
     </div>
 
-    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+    <div class="section-label">Office Location</div>
+    <div class="contacts">
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            const overlay = document.getElementById('mobileOverlay');
-            if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : ''; });
-                overlay.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
-                document.querySelectorAll('.nav-links a').forEach(function (link) { link.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }); });
+      <!-- Address -->
+      <a class="contact-card" data-cat="location" href="https://maps.google.com/?q=نوشهر+سیسنگان+علویکلا" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13z"/>
+            <circle cx="12" cy="9" r="3"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">دفتر مرکزی</div>
+          <div class="contact-value rtl">نوشهر، ۸ کیلومتری سیسنگان به رویان، نبش ورودی علویکلا</div>
+        </div>
+        <span class="contact-arrow">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Working Hours -->
+      <div class="contact-card" data-cat="location" style="cursor: default;">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <div class="contact-label">ساعات کاری</div>
+          <div class="contact-value rtl">شنبه تا پنجشنبه — ۸ صبح تا ۶ عصر</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM DOCK ========== -->
+  <nav class="dock" id="dock" aria-label="Main menu">
+    <div class="dock-line" aria-hidden="true"></div>
+    <div class="dock-inner">
+
+      <a class="dock-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 3l9 8.5"/>
+          <path d="M5 10.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9.5"/>
+        </svg>
+        <span class="lbl">خانه</span>
+      </a>
+
+      <a class="dock-btn" href="projects.html" aria-label="Projects">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V6l7-3v18"/>
+          <path d="M11 8h9v13"/>
+          <line x1="7" y1="9" x2="7" y2="9.01"/>
+          <line x1="7" y1="13" x2="7" y2="13.01"/>
+          <line x1="7" y1="17" x2="7" y2="17.01"/>
+          <line x1="15" y1="12" x2="15" y2="12.01"/>
+          <line x1="15" y1="16" x2="15" y2="16.01"/>
+        </svg>
+        <span class="lbl">پروژه‌ها</span>
+      </a>
+
+      <a class="dock-btn" href="services.html" aria-label="Services">
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+        </svg>
+        <span class="lbl">خدمات</span>
+      </a>
+
+      <a class="dock-btn" href="videos.html" aria-label="Videos">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M10 8.5 16 12l-6 3.5z" fill="url(#iconGrad)" stroke="none"/>
+        </svg>
+        <span class="lbl">ویدیوها</span>
+      </a>
+
+      <a class="dock-btn" href="blog.html" aria-label="Blog">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 6.5C10.5 5 8 4.5 4 5v13c4-.5 6.5 0 8 1.5"/>
+          <path d="M12 6.5C13.5 5 16 4.5 20 5v13c-4-.5-6.5 0-8 1.5"/>
+          <line x1="12" y1="6.5" x2="12" y2="19.5"/>
+        </svg>
+        <span class="lbl">وبلاگ</span>
+      </a>
+
+      <a class="dock-btn" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+        </svg>
+        <span class="lbl">درباره</span>
+      </a>
+
+      <a class="dock-btn active" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+        </svg>
+        <span class="lbl">تماس</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // Build title letter by letter
+      const bigLine = document.getElementById("bigLine");
+      const text = "ZigguratContact";
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const delay = (0.5 + i * 0.07).toFixed(2);
+        html += '<span class="letter" style="animation-delay:' + delay + 's">' + text[i] + '</span>';
+      }
+      bigLine.innerHTML = html;
+
+      // Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const contactCards = document.querySelectorAll(".contact-card");
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.dataset.filter;
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          contactCards.forEach(function (card, idx) {
+            const match = (filter === "all" || card.dataset.cat === filter);
+            if (match) {
+              card.style.display = "";
+              card.style.animation = "none";
+              void card.offsetWidth;
+              card.style.animation = "cardIn 0.7s var(--ease) " + (idx * 0.05) + "s forwards";
+            } else {
+              card.style.display = "none";
             }
-            // Leaflet Map
-            const map = L.map('mapid').setView([36.6542, 51.5035], 15);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
-            L.marker([36.6542, 51.5035]).addTo(map).bindPopup("زیگورات سازان").openPopup();
+          });
         });
-        const themeToggle = document.getElementById('themeToggle'); const body = document.body; const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') { body.classList.add('dark-mode'); icon.classList.replace('fa-sun','fa-moon'); }
-        themeToggle.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun'); localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light'); });
-    </script>
+      });
+
+      // Toggle dock on page tap
+      const body = document.body;
+      let ready = false;
+      setTimeout(function () { ready = true; }, 2500);
+
+      document.addEventListener("click", function (e) {
+        if (e.target.closest("a, button, .dock, .filters")) return;
+        if (e.target.closest(".content")) return;
+        if (!ready) return;
+        body.classList.toggle("dock-visible");
+      });
+
+      // Prevent double-tap & pinch zoom
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
 </body>
 </html>
