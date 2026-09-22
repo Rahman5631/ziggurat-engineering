@@ -1,137 +1,937 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وبلاگ | زیگورات سازان</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-deep: #fcf9f5; --bg-card: #ffffff; --brick: #c44536; --brick-dark: #8b3a32;
-            --text-primary: #2c241b; --text-secondary: #4a4038; --text-muted: #7a6f65;
-            --border-subtle: rgba(196,69,54,0.2); --shadow-card: 0 8px 30px rgba(0,0,0,0.08);
-            --navbar-bg: rgba(255,255,255,0.95); --footer-bg: #f7f3ee;
-        }
-        /* حالت تاریک */
-body.dark-mode {
-    --bg-deep: #1c1a18;
-    --bg-card: #2a2521;
-    --brick: #d6685a;
-    --brick-dark: #a34b3f;
-    --text-primary: #ece6df;
-    --text-secondary: #c9bfb3;
-    --text-muted: #9d9184;
-    --border-subtle: rgba(214, 104, 90, 0.3);
-    --border-brick: rgba(214, 104, 90, 0.4);
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
-    --navbar-bg: rgba(28, 26, 24, 0.95);
-    --footer-bg: #1c1a18;
-}
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:var(--bg-deep); color:var(--text-primary); line-height:1.7; transition:0.3s; }
-        .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:var(--navbar-bg); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-subtle); box-shadow:0 4px 30px rgba(0,0,0,0.08); }
-        .nav-brand { display:flex; align-items:center; gap:0.5rem; text-decoration:none; }
-        .brand-icon { width:44px; height:44px; background:linear-gradient(135deg, var(--brick-dark), var(--brick)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:#fff; }
-        .brand-text { font-size:1.6rem; font-weight:800; color:var(--text-primary); } .brand-text span { color:var(--brick); }
-        .nav-links { display:flex; list-style:none; gap:1.8rem; align-items:center; transition:0.4s ease; }
-        .nav-links a { text-decoration:none; color:var(--text-secondary); font-weight:500; font-size:0.95rem; transition:0.25s; }
-        .nav-links a:hover { color:var(--brick); } .nav-links a.active-link { color:var(--brick); font-weight:700; }
-        .nav-controls { display:flex; align-items:center; gap:1rem; }
-        .theme-toggle { background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-primary); width:38px; height:38px; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-        .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:6px; padding:8px; }
-        .hamburger span { width:28px; height:2.5px; background:var(--text-primary); border-radius:4px; transition:0.25s; }
-        .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); } .hamburger.active span:nth-child(2) { opacity:0; } .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
-        @media (max-width:900px) {
-            .hamburger { display:flex; }
-            .nav-links { position:fixed; top:0; right:-100%; width:75%; max-width:380px; height:100vh; background:var(--navbar-bg); backdrop-filter:blur(25px); flex-direction:column; justify-content:center; gap:2.5rem; transition:0.4s; border-left:1px solid var(--border-subtle); box-shadow:-10px 0 40px rgba(0,0,0,0.2); }
-            .nav-links.active { right:0; }
-            .mobile-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999; opacity:0; pointer-events:none; transition:0.4s; }
-            .mobile-overlay.active { opacity:1; pointer-events:all; }
-        }
-        .container { max-width:1100px; margin:0 auto; padding:6rem 2rem 2rem; }
-        .section-header { text-align:center; margin-bottom:3rem; } .section-title { font-size:2.2rem; font-weight:800; } .section-line { width:70px; height:3px; background:var(--brick); margin:0.5rem auto; border-radius:3px; }
-        .blog-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:2rem; }
-        .blog-card { background:var(--bg-card); backdrop-filter:blur(15px); border:1px solid var(--border-subtle); border-radius:16px; padding:2rem; transition:0.3s; box-shadow:var(--shadow-card); }
-        .blog-card:hover { transform:translateY(-6px); border-color:var(--brick); }
-        .blog-category { display:inline-block; font-size:0.75rem; color:var(--brick); background:rgba(196,69,54,0.1); padding:0.2rem 0.8rem; border-radius:6px; margin-bottom:0.7rem; }
-        .blog-card h3 { margin-bottom:0.8rem; }
-        .blog-card p { color:var(--text-secondary); margin-bottom:1.2rem; }
-        .blog-meta { display:flex; justify-content:space-between; align-items:center; color:var(--text-muted); font-size:0.85rem; border-top:1px solid var(--border-subtle); padding-top:1rem; }
-        .read-more { color:var(--brick); font-weight:700; text-decoration:none; }
-        .footer { background:var(--footer-bg); border-top:1px solid var(--border-subtle); padding:2rem; text-align:center; color:var(--text-muted); margin-top:4rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>Journal | Zigguratsazan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --bg: #000000;
+    --orange: #f5a623;
+    --orange-l: #ffc761;
+    --orange-d: #e08b1f;
+    --grad-txt: linear-gradient(180deg, #ffc761 0%, #f5a623 100%);
+    --grad-line: linear-gradient(180deg, #ffc761 0%, #f5a623 50%, #e08b1f 100%);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'Inter', 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--orange);
+    position: fixed;
+    inset: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ==========================================
+     PAGE FRAME
+     ========================================== */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .page-frame .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange-l);
+    opacity: 0.85;
+    animation: cornerPulse 4s ease-in-out infinite;
+  }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.5; border-color: #ffc761; }
+    50% { opacity: 1; border-color: #f5a623; }
+  }
+  .page-frame .tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .page-frame .tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .page-frame .bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .page-frame .br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  /* ==========================================
+     HEADER
+     ========================================== */
+  .header {
+    position: absolute;
+    top: max(24px, 3.2vh);
+    left: 0;
+    right: 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .small-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 6px;
+    margin-left: 0.5em;
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideRTL 1.4s var(--ease) 0.3s forwards;
+  }
+
+  @keyframes slideRTL {
+    0% { opacity: 0; transform: translateX(60px); letter-spacing: 0.9em; }
+    100% { opacity: 1; transform: translateX(0); letter-spacing: 0.5em; }
+  }
+
+  .big-line {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .big-line .letter {
+    display: inline-block;
+    background: var(--grad-txt);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: letterLTR 0.8s var(--ease) forwards;
+  }
+
+  @keyframes letterLTR {
+    0% { opacity: 0; transform: translateX(-30px); }
+    70% { opacity: 1; transform: translateX(3px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ==========================================
+     FILTER BAR
+     ========================================== */
+  .filters {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 88px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 0 14px;
+    mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 32px;
+    white-space: nowrap;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 2px;
+    color: #6f6350;
+    cursor: pointer;
+    transition: color 0.4s var(--ease);
+    letter-spacing: 0.3px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--grad-line);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .filter-btn:hover,
+  .filter-btn:active {
+    color: #d8bd8a;
+  }
+
+  .filter-btn.active {
+    color: var(--orange-l);
+    font-weight: 500;
+  }
+
+  .filter-btn.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ==========================================
+     CONTENT
+     ========================================== */
+  .content {
+    position: absolute;
+    top: calc(max(24px, 3.2vh) + 140px);
+    left: 0;
+    right: 0;
+    bottom: calc(20vh + var(--safe-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 24px 40px;
+    z-index: 2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ==========================================
+     BLOG GRID
+     ========================================== */
+  .blog {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .blog {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .post-card {
+    position: relative;
+    background: #0a0806;
+    border: 1.5px solid rgba(245, 166, 35, 0.28);
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s var(--ease);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: cardIn 0.9s var(--ease) forwards;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .post-card:nth-child(1) { animation-delay: 0.4s; }
+  .post-card:nth-child(2) { animation-delay: 0.55s; }
+  .post-card:nth-child(3) { animation-delay: 0.7s; }
+  .post-card:nth-child(4) { animation-delay: 0.85s; }
+  .post-card:nth-child(5) { animation-delay: 1.0s; }
+  .post-card:nth-child(6) { animation-delay: 1.15s; }
+
+  .post-card:hover,
+  .post-card:active {
+    border-color: var(--orange-l);
+    box-shadow: 0 0 24px rgba(245, 166, 35, 0.25);
+    transform: translateY(-3px);
+  }
+
+  /* Thumb */
+  .post-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #0d0a08, #050403);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+  }
+
+  .post-thumb svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Info */
+  .post-info {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .post-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .post-cat {
+    display: inline-block;
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--orange-l);
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .post-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: #6f6350;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .post-title {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f0e6d2;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+  }
+
+  .post-excerpt {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #8a7a5f;
+    line-height: 1.75;
+    letter-spacing: 0.1px;
+    /* 2-line clamp */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--orange);
+    transition: color 0.4s var(--ease), gap 0.4s var(--ease);
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .post-card:hover .post-more,
+  .post-card:active .post-more {
+    color: var(--orange-l);
+    gap: 10px;
+  }
+
+  .post-more svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Featured (first post) special styling on large screens */
+  @media (min-width: 640px) {
+    .post-card:first-child {
+      grid-column: 1 / -1;
+      flex-direction: row;
+    }
+    .post-card:first-child .post-thumb {
+      width: 50%;
+      aspect-ratio: auto;
+      border-bottom: none;
+      border-left: 1px solid rgba(245, 166, 35, 0.15);
+    }
+    .post-card:first-child .post-info {
+      width: 50%;
+      padding: 20px 22px;
+    }
+    .post-card:first-child .post-title {
+      font-size: 1.15rem;
+    }
+    .post-card:first-child .post-excerpt {
+      -webkit-line-clamp: 3;
+    }
+  }
+
+  /* ==========================================
+     BOTTOM DOCK
+     ========================================== */
+  .dock {
+    position: absolute;
+    bottom: calc(2vh + var(--safe-bottom));
+    left: 6vw;
+    right: 6vw;
+    max-width: 480px;
+    margin-inline: auto;
+    padding: 12px 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    z-index: 10;
+  }
+
+  body.dock-visible .dock {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dock-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+  }
+
+  .dock-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 2px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px) scale(0.7);
+  }
+
+  body.dock-visible .dock-btn {
+    animation: btnIn 0.7s var(--ease) forwards;
+  }
+  body.dock-visible .dock-btn:nth-child(1) { animation-delay: 0.10s; }
+  body.dock-visible .dock-btn:nth-child(2) { animation-delay: 0.20s; }
+  body.dock-visible .dock-btn:nth-child(3) { animation-delay: 0.30s; }
+  body.dock-visible .dock-btn:nth-child(4) { animation-delay: 0.40s; }
+  body.dock-visible .dock-btn:nth-child(5) { animation-delay: 0.50s; }
+  body.dock-visible .dock-btn:nth-child(6) { animation-delay: 0.60s; }
+  body.dock-visible .dock-btn:nth-child(7) { animation-delay: 0.70s; }
+
+  @keyframes btnIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: url(#iconGrad);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(245, 166, 35, 0.55));
+    transition: transform 0.4s var(--ease), filter 0.4s var(--ease);
+  }
+
+  .dock-btn:active svg {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.9));
+  }
+
+  .dock-btn.active svg {
+    filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.85));
+  }
+
+  .dock-btn .lbl {
+    font-family: 'Vazirmatn', 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: #8a7a5f;
+    transition: color 0.4s var(--ease);
+    white-space: nowrap;
+  }
+
+  .dock-btn.active .lbl,
+  .dock-btn:active .lbl {
+    color: var(--orange-l);
+  }
+
+  .dock-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg,
+      var(--orange-l) 0 4px,
+      transparent 4px 8px);
+    background-size: 8px 100%;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease) 0.3s;
+  }
+
+  body.dock-visible .dock-line {
+    opacity: 0.85;
+  }
+
+  /* ==========================================
+     MOBILE TUNING
+     ========================================== */
+  @media (max-width: 380px) {
+    .small-line { font-size: 10px; }
+    .big-line { font-size: 20px; }
+    .filter-btn { font-size: 0.8rem; }
+    .dock-btn svg { width: 22px; height: 22px; }
+    .dock-btn .lbl { font-size: 0.54rem; }
+    .post-title { font-size: 0.94rem; }
+    .post-excerpt { font-size: 0.78rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .post-card { opacity: 1; transform: none; }
+    .big-line .letter { opacity: 1; transform: none; }
+    .small-line { opacity: 1; transform: none; }
+    .dock-btn { opacity: 1; }
+    .dock { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand"><div class="brand-icon"><i class="fa-solid fa-hard-hat"></i></div><span class="brand-text">زیگورات<span>سازان</span></span></a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">صفحه اصلی</a></li><li><a href="projects.html">پروژه‌ها</a></li><li><a href="services.html">خدمات ما</a></li><li><a href="videos.html">ویدیو ها</a></li><li><a href="blog.html" class="active-link">وبلاگ</a></li><li><a href="about.html">درباره ما</a></li><li><a href="contact.html">تماس با ما</a></li>
-        </ul>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-sun"></i></button>
-            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="section-header"><h1 class="section-title">وبلاگ تخصصی معماری</h1><div class="section-line"></div></div>
-        <div class="blog-grid">
-            <div class="blog-card">
-                <span class="blog-category">متریال و مصالح</span>
-                <h3>راهنمای انتخاب بهترین متریال نما در شمال</h3>
-                <p>مقایسه جامع کامپوزیت، سنگ و ترموود برای شرایط آب و هوایی مازندران و کاهش هزینه‌های نگهداری.</p>
-                <div class="blog-meta"><span>۲ مرداد ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-            <div class="blog-card">
-                <span class="blog-category">طراحی ویلا</span>
-                <h3>اصول طراحی ویلاهای مدرن و هماهنگ با طبیعت</h3>
-                <p>نکات کلیدی جهت کاهش رطوبت، استفاده از نور طبیعی و ایجاد فضای باز دلنشین در ویلاهای شمال کشور.</p>
-                <div class="blog-meta"><span>۱۸ تیر ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-            <div class="blog-card">
-                <span class="blog-category">اقتصاد ساختمان</span>
-                <h3>هزینه ساخت و ساز در سال ۱۴۰۵ و راهکارهای کاهش</h3>
-                <p>بررسی عوامل مؤثر بر قیمت تمام‌شده و ارائه راهکارهای عملی برای مدیریت بودجه پروژه.</p>
-                <div class="blog-meta"><span>۳ تیر ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-            <div class="blog-card">
-                <span class="blog-category">بازسازی</span>
-                <h3>نکات طلایی بازسازی ساختمان‌های فرسوده</h3>
-                <p>چطور بدون تخریب کامل، یک بنای قدیمی را به فضایی مدرن، ایمن و زیبا تبدیل کنیم؟</p>
-                <div class="blog-meta"><span>۲۰ خرداد ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-            <div class="blog-card">
-                <span class="blog-category">دکوراسیون داخلی</span>
-                <h3>ترندهای دکوراسیون داخلی در سال ۱۴۰۴</h3>
-                <p>از سبک مینیمال ژاپنی تا مدرن اروپایی؛ چه رنگ‌ها و متریال‌هایی امسال محبوب هستند؟</p>
-                <div class="blog-meta"><span>۵ خرداد ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-            <div class="blog-card">
-                <span class="blog-category">سازه</span>
-                <h3>مقایسه اسکلت بتنی و فلزی؛ کدام بهتر است؟</h3>
-                <p>مزایا، معایب، هزینه و سرعت اجرا در شرایط آب و هوایی شمال کشور.</p>
-                <div class="blog-meta"><span>۲۸ اردیبهشت ۱۴۰۴</span><a href="#" class="read-more">ادامه مطلب ←</a></div>
-            </div>
-        </div>
+  <!-- Hidden SVG defs -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;">
+    <defs>
+      <linearGradient id="iconGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+      <linearGradient id="thumbGrad1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc761"/>
+        <stop offset="100%" stop-color="#e08b1f"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ========== PAGE FRAME ========== -->
+  <div class="page-frame" aria-hidden="true">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <div class="small-line">Journal</div>
+    <div class="big-line" id="bigLine" aria-label="ZigguratJournal"></div>
+  </div>
+
+  <!-- ========== FILTERS ========== -->
+  <div class="filters" id="filters">
+    <div class="filters-inner">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="design">طراحی</button>
+      <button class="filter-btn" data-filter="materials">مصالح</button>
+      <button class="filter-btn" data-filter="cost">هزینه</button>
+      <button class="filter-btn" data-filter="renovation">بازسازی</button>
+      <button class="filter-btn" data-filter="interior">داخلی</button>
     </div>
+  </div>
 
-    <footer class="footer"><p>© ۲۰۲۶ تمامی حقوق برای شرکت معماری زیگورات سازان محفوظ است.</p></footer>
+  <!-- ========== CONTENT ========== -->
+  <div class="content">
+    <div class="blog" id="blogGrid">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            const overlay = document.getElementById('mobileOverlay');
-            if (hamburger && navLinks && overlay) {
-                hamburger.addEventListener('click', function () { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : ''; });
-                overlay.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
-                document.querySelectorAll('.nav-links a').forEach(function (link) { link.addEventListener('click', function () { hamburger.classList.remove('active'); navLinks.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }); });
+      <!-- 1. Featured — Materials -->
+      <a class="post-card" data-cat="materials" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Layered wall textures -->
+            <rect x="40" y="40" width="320" height="50" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5" opacity="0.7"/>
+            <rect x="40" y="100" width="320" height="50" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5" opacity="0.7"/>
+            <rect x="40" y="160" width="320" height="50" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5" opacity="0.7"/>
+            <!-- Brick pattern in second row -->
+            <line x1="80" y1="100" x2="80" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="120" y1="100" x2="120" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="160" y1="100" x2="160" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="200" y1="100" x2="200" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="240" y1="100" x2="240" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="280" y1="100" x2="280" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="320" y1="100" x2="320" y2="150" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <!-- Textured pattern in third row -->
+            <circle cx="90" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <circle cx="140" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <circle cx="190" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <circle cx="240" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <circle cx="290" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <circle cx="340" cy="185" r="6" stroke="#f5a623" stroke-width="0.8" fill="none" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">مصالح</span>
+            <span class="post-date">2024 / 08 / 12</span>
+          </div>
+          <div class="post-title">راهنمای جامع انتخاب متریال نما در اقلیم شمال</div>
+          <div class="post-excerpt">مقایسهٔ کامپوزیت، سنگ تراورتن، چوب ترموود و میکروسمنت برای ساختمان‌های شمالی؛ بررسی مقاومت در برابر رطوبت، هزینهٔ نگهداری و زیبایی در گذر زمان.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 2. Design -->
+      <a class="post-card" data-cat="design" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Blueprint sketch -->
+            <rect x="60" y="40" width="280" height="145" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5" opacity="0.7" stroke-dasharray="4 4"/>
+            <rect x="100" y="70" width="200" height="115" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5"/>
+            <line x1="100" y1="110" x2="300" y2="110" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <line x1="200" y1="70" x2="200" y2="185" stroke="#f5a623" stroke-width="0.8" opacity="0.5"/>
+            <!-- Sun -->
+            <circle cx="320" cy="60" r="20" stroke="#f5a623" stroke-width="1.2" fill="none" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">طراحی</span>
+            <span class="post-date">2024 / 07 / 28</span>
+          </div>
+          <div class="post-title">اصول طراحی ویلاهای مدرن در شمال ایران</div>
+          <div class="post-excerpt">چگونه از نور طبیعی، تهویهٔ متقاطع و مصالح بومی برای ساخت ویلایی هماهنگ با طبیعت استفاده کنیم.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 3. Cost -->
+      <a class="post-card" data-cat="cost" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Bar chart -->
+            <line x1="60" y1="185" x2="360" y2="185" stroke="#f5a623" stroke-width="1.5" opacity="0.7"/>
+            <rect x="90" y="120" width="30" height="65" fill="url(#thumbGrad1)" opacity="0.5"/>
+            <rect x="150" y="90" width="30" height="95" fill="url(#thumbGrad1)" opacity="0.6"/>
+            <rect x="210" y="60" width="30" height="125" fill="url(#thumbGrad1)" opacity="0.7"/>
+            <rect x="270" y="110" width="30" height="75" fill="url(#thumbGrad1)" opacity="0.55"/>
+            <rect x="330" y="140" width="30" height="45" fill="url(#thumbGrad1)" opacity="0.45"/>
+            <!-- Trend line -->
+            <polyline points="105,120 165,90 225,60 285,110 345,140" stroke="#ffc761" stroke-width="1.5" fill="none" opacity="0.8" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">هزینه</span>
+            <span class="post-date">2024 / 07 / 15</span>
+          </div>
+          <div class="post-title">برآورد هزینهٔ ساخت در سال ۱۴۰۴</div>
+          <div class="post-excerpt">تحلیل عوامل مؤثر بر قیمت تمام‌شدهٔ هر مترمربع بنا و ارائهٔ راهکارهای عملی برای کاهش هزینه بدون افت کیفیت.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 4. Renovation -->
+      <a class="post-card" data-cat="renovation" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Old vs New -->
+            <rect x="40" y="55" width="140" height="130" fill="none" stroke="#f5a623" stroke-width="1.2" opacity="0.35" stroke-dasharray="4 4"/>
+            <rect x="220" y="55" width="140" height="130" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5"/>
+            <rect x="240" y="75" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="280" y="75" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="320" y="75" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="240" y="115" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="280" y="115" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <rect x="320" y="115" width="30" height="30" fill="#f5a623" opacity="0.3"/>
+            <!-- Arrow -->
+            <path d="M190 120 L205 120 M200 114 L206 120 L200 126" stroke="#ffc761" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">بازسازی</span>
+            <span class="post-date">2024 / 06 / 30</span>
+          </div>
+          <div class="post-title">نکات کلیدی بازسازی ساختمان‌های قدیمی</div>
+          <div class="post-excerpt">چطور بدون تخریب کامل، بنایی قدیمی را به فضایی مدرن و ایمن تبدیل کنیم و ارزش ملک را چند برابر کنیم.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 5. Interior -->
+      <a class="post-card" data-cat="interior" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Room perspective -->
+            <rect x="80" y="60" width="240" height="120" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5"/>
+            <line x1="80" y1="60" x2="140" y2="30" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <line x1="320" y1="60" x2="260" y2="30" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <line x1="140" y1="30" x2="260" y2="30" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <!-- Sofa -->
+            <rect x="140" y="130" width="120" height="40" fill="#f5a623" opacity="0.2"/>
+            <rect x="140" y="120" width="120" height="10" fill="#f5a623" opacity="0.3"/>
+            <!-- Lamp -->
+            <line x1="300" y1="100" x2="300" y2="160" stroke="#f5a623" stroke-width="1.2" opacity="0.6"/>
+            <path d="M290 100 L310 100 L305 85 L295 85 Z" fill="url(#thumbGrad1)" opacity="0.6"/>
+            <!-- Plant -->
+            <circle cx="110" cy="140" r="14" stroke="#f5a623" stroke-width="1" fill="none" opacity="0.5"/>
+            <line x1="110" y1="154" x2="110" y2="170" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">داخلی</span>
+            <span class="post-date">2024 / 06 / 18</span>
+          </div>
+          <div class="post-title">ترندهای دکوراسیون داخلی مدرن ۱۴۰۴</div>
+          <div class="post-excerpt">از سبک مینیمال ژاپنی تا ترکیب چوب و فلز؛ نگاهی به پرطرفدارترین سبک‌های داخلی سال جدید.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- 6. Design -->
+      <a class="post-card" data-cat="design" href="#">
+        <div class="post-thumb">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0a0806"/>
+            <!-- Perspective building -->
+            <polygon points="100,180 200,80 300,80 200,180" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5"/>
+            <polygon points="100,180 200,180 300,80 300,80" fill="none" stroke="url(#thumbGrad1)" stroke-width="1.5"/>
+            <line x1="130" y1="150" x2="230" y2="50" stroke="#f5a623" stroke-width="1" opacity="0.5"/>
+            <line x1="200" y1="80" x2="200" y2="180" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <line x1="160" y1="120" x2="260" y2="120" stroke="#f5a623" stroke-width="0.8" opacity="0.4"/>
+            <!-- Grid -->
+            <line x1="40" y1="60" x2="360" y2="60" stroke="#f5a623" stroke-width="0.5" opacity="0.2"/>
+            <line x1="40" y1="130" x2="360" y2="130" stroke="#f5a623" stroke-width="0.5" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="post-info">
+          <div class="post-meta-row">
+            <span class="post-cat">طراحی</span>
+            <span class="post-date">2024 / 06 / 05</span>
+          </div>
+          <div class="post-title">اسکلت بتنی یا فلزی؛ کدام برای پروژهٔ شما؟</div>
+          <div class="post-excerpt">مقایسهٔ کامل مزایا، معایب، هزینه و سرعت اجرا بین اسکلت بتنی و فلزی برای ساختمان‌های شمالی.</div>
+          <span class="post-more">
+            ادامه مطلب
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM DOCK ========== -->
+  <nav class="dock" id="dock" aria-label="Main menu">
+    <div class="dock-line" aria-hidden="true"></div>
+    <div class="dock-inner">
+
+      <a class="dock-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 3l9 8.5"/>
+          <path d="M5 10.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9.5"/>
+        </svg>
+        <span class="lbl">خانه</span>
+      </a>
+
+      <a class="dock-btn" href="projects.html" aria-label="Projects">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V6l7-3v18"/>
+          <path d="M11 8h9v13"/>
+          <line x1="7" y1="9" x2="7" y2="9.01"/>
+          <line x1="7" y1="13" x2="7" y2="13.01"/>
+          <line x1="7" y1="17" x2="7" y2="17.01"/>
+          <line x1="15" y1="12" x2="15" y2="12.01"/>
+          <line x1="15" y1="16" x2="15" y2="16.01"/>
+        </svg>
+        <span class="lbl">پروژه‌ها</span>
+      </a>
+
+      <a class="dock-btn" href="services.html" aria-label="Services">
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/>
+        </svg>
+        <span class="lbl">خدمات</span>
+      </a>
+
+      <a class="dock-btn" href="videos.html" aria-label="Videos">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M10 8.5 16 12l-6 3.5z" fill="url(#iconGrad)" stroke="none"/>
+        </svg>
+        <span class="lbl">ویدیوها</span>
+      </a>
+
+      <a class="dock-btn active" href="blog.html" aria-label="Blog">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 6.5C10.5 5 8 4.5 4 5v13c4-.5 6.5 0 8 1.5"/>
+          <path d="M12 6.5C13.5 5 16 4.5 20 5v13c-4-.5-6.5 0-8 1.5"/>
+          <line x1="12" y1="6.5" x2="12" y2="19.5"/>
+        </svg>
+        <span class="lbl">وبلاگ</span>
+      </a>
+
+      <a class="dock-btn" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M4.5 20c1.5-4.2 4.2-6.3 7.5-6.3s6 2.1 7.5 6.3"/>
+        </svg>
+        <span class="lbl">درباره</span>
+      </a>
+
+      <a class="dock-btn" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7.3 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+        </svg>
+        <span class="lbl">تماس</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // Build title letter by letter
+      const bigLine = document.getElementById("bigLine");
+      const text = "ZigguratJournal";
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const delay = (0.5 + i * 0.07).toFixed(2);
+        html += '<span class="letter" style="animation-delay:' + delay + 's">' + text[i] + '</span>';
+      }
+      bigLine.innerHTML = html;
+
+      // Filter
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const postCards = document.querySelectorAll(".post-card");
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.dataset.filter;
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          postCards.forEach(function (card, idx) {
+            const match = (filter === "all" || card.dataset.cat === filter);
+            if (match) {
+              card.style.display = "";
+              card.style.animation = "none";
+              void card.offsetWidth;
+              card.style.animation = "cardIn 0.7s var(--ease) " + (idx * 0.05) + "s forwards";
+            } else {
+              card.style.display = "none";
             }
+          });
         });
-        const themeToggle = document.getElementById('themeToggle'); const body = document.body; const icon = themeToggle.querySelector('i');
-        if (localStorage.getItem('ziggurat-theme') === 'dark') { body.classList.add('dark-mode'); icon.classList.replace('fa-sun','fa-moon'); }
-        themeToggle.addEventListener('click', () => { body.classList.toggle('dark-mode'); const isDark = body.classList.contains('dark-mode'); icon.classList.replace(isDark ? 'fa-sun' : 'fa-moon', isDark ? 'fa-moon' : 'fa-sun'); localStorage.setItem('ziggurat-theme', isDark ? 'dark' : 'light'); });
-    </script>
+      });
+
+      // Toggle dock on page tap
+      const body = document.body;
+      let ready = false;
+      setTimeout(function () { ready = true; }, 2500);
+
+      document.addEventListener("click", function (e) {
+        if (e.target.closest("a, button, .dock, .filters")) return;
+        if (e.target.closest(".content")) return;
+        if (!ready) return;
+        body.classList.toggle("dock-visible");
+      });
+
+      // Prevent double-tap & pinch zoom
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+    })();
+  </script>
 </body>
 </html>
